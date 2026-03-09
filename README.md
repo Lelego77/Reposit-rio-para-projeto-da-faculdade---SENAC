@@ -35,6 +35,7 @@ O objetivo do projeto é demonstrar o funcionamento de um sistema básico de com
 
 ## Estrutura do Projeto
 
+```
 Repositório-para-projeto-da-faculdade-SENAC
 │
 ├── backend
@@ -45,6 +46,7 @@ Repositório-para-projeto-da-faculdade-SENAC
 │   └── index.html
 │
 └── README.md
+```
 
 ## Como executar o projeto
 
@@ -82,4 +84,5 @@ Assim será possível visualizar os itens cadastrados e realizar reservas.
 ## Repositório
 
 Projeto hospedado no GitHub para fins acadêmicos no curso do SENAC.
+
 
