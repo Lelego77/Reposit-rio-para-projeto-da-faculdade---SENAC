@@ -35,14 +35,16 @@ O objetivo do projeto é demonstrar o funcionamento de um sistema básico de com
 
 ## Estrutura do Projeto
 
-backend
-server.js
-package.json
-
-frontend
-index.html
-
-README.md
+Repositório-para-projeto-da-faculdade-SENAC
+│
+├── backend
+│   ├── server.js
+│   └── package.json
+│
+├── frontend
+│   └── index.html
+│
+└── README.md
 
 ## Como executar o projeto
 
@@ -66,9 +68,7 @@ npm install
 
 node server.js
 
-O servidor será iniciado na porta:
-
-http://localhost:3000
+O servidor será iniciado localmente na porta configurada no arquivo server.js (exemplo: http://localhost:3000).
 
 ## Executar a interface
 
@@ -82,3 +82,4 @@ Assim será possível visualizar os itens cadastrados e realizar reservas.
 ## Repositório
 
 Projeto hospedado no GitHub para fins acadêmicos no curso do SENAC.
+
