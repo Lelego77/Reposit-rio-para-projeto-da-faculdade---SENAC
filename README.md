@@ -85,4 +85,14 @@ Assim será possível visualizar os itens cadastrados e realizar reservas.
 
 Projeto hospedado no GitHub para fins acadêmicos no curso do SENAC.
 
+## Melhorias planejadas
+
+Como continuidade do projeto, o grupo pode evoluir a aplicação com as seguintes melhorias:
+
+* Autenticação de moradores com login e senha
+* Histórico de empréstimos e devoluções
+* Filtro de itens por categoria e disponibilidade
+* Validação de dados no backend para evitar reservas inválidas
+* Interface mais responsiva para uso em dispositivos móveis
+
 
