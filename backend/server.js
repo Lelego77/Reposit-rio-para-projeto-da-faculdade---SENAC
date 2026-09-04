@@ -15,7 +15,7 @@ const pool = new Pool({
   }
 })
 
-// Teste de conexão
+// Teste de conexão com o banco
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()")
@@ -34,14 +34,14 @@ app.get("/", async (req, res) => {
   }
 })
 
-// Cadastrar usuário pela URL - teste
-app.get("/test-user", async (req, res) => {
+// Cadastrar usuário
+app.post("/users", async (req, res) => {
   try {
-    const { name, email, password } = req.query
+    const { name, email, password } = req.body
 
     if (!name || !email || !password) {
       return res.status(400).json({
-        error: "Informe name, email e password"
+        error: "Nome, email e senha são obrigatórios"
       })
     }
 
@@ -52,29 +52,7 @@ app.get("/test-user", async (req, res) => {
       [name, email, password, "morador"]
     )
 
-    res.json(result.rows[0])
-  } catch (error) {
-    console.error(error)
-
-    res.status(500).json({
-      error: "Erro ao cadastrar usuário"
-    })
-  }
-})
-
-// Cadastrar usuário
-app.post("/users", async (req, res) => {
-  try {
-    const { name, email, password } = req.body
-
-    const result = await pool.query(
-      `INSERT INTO usuario (nome, email, senha, tipo_usuario)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id_usuario, nome, email, tipo_usuario`,
-      [name, email, password, "morador"]
-    )
-
-    res.json(result.rows[0])
+    res.status(201).json(result.rows[0])
   } catch (error) {
     console.error(error)
 
@@ -89,6 +67,12 @@ app.post("/items", async (req, res) => {
   try {
     const { name, description, categoryId, userId } = req.body
 
+    if (!name || !categoryId || !userId) {
+      return res.status(400).json({
+        error: "Nome, categoria e usuário são obrigatórios"
+      })
+    }
+
     const result = await pool.query(
       `INSERT INTO item
        (nome, descricao, id_categoria, id_usuario)
@@ -97,7 +81,7 @@ app.post("/items", async (req, res) => {
       [name, description, categoryId, userId]
     )
 
-    res.json(result.rows[0])
+    res.status(201).json(result.rows[0])
   } catch (error) {
     console.error(error)
 
@@ -141,6 +125,12 @@ app.post("/reservations", async (req, res) => {
   try {
     const { itemId, userId, startDate, returnDate } = req.body
 
+    if (!itemId || !userId || !startDate || !returnDate) {
+      return res.status(400).json({
+        error: "Item, usuário, data de início e data de devolução são obrigatórios"
+      })
+    }
+
     const result = await pool.query(
       `INSERT INTO emprestimo
        (id_item, id_usuario, data_inicio, data_devolucao)
@@ -149,7 +139,7 @@ app.post("/reservations", async (req, res) => {
       [itemId, userId, startDate, returnDate]
     )
 
-    res.json(result.rows[0])
+    res.status(201).json(result.rows[0])
   } catch (error) {
     console.error(error)
 
