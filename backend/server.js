@@ -14,10 +14,33 @@ const pool = new Pool({
   }
 })
 
+// TESTE DE CONEXÃO COM O BANCO
+app.get("/", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()")
+    res.json({
+      message: "Backend funcionando!",
+      database: "Conectado",
+      time: result.rows[0].now
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      error: "Erro ao conectar com o banco"
+    })
+  }
+})
+
 // cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
     console.log("BODY RECEBIDO:", req.body)
+
+    res.json({
+      body: req.body,
+      contentType: req.headers["content-type"]
+    })
+    return
 
     const { name, email, password } = req.body
 
@@ -31,7 +54,9 @@ app.post("/users", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Erro ao cadastrar usuário" })
+    res.status(500).json({
+      error: "Erro ao cadastrar usuário"
+    })
   }
 })
 
@@ -51,7 +76,9 @@ app.post("/items", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Erro ao cadastrar item" })
+    res.status(500).json({
+      error: "Erro ao cadastrar item"
+    })
   }
 })
 
@@ -77,7 +104,9 @@ app.get("/items", async (req, res) => {
     res.json(result.rows)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Erro ao listar itens" })
+    res.status(500).json({
+      error: "Erro ao listar itens"
+    })
   }
 })
 
@@ -97,7 +126,9 @@ app.post("/reservations", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Erro ao solicitar empréstimo" })
+    res.status(500).json({
+      error: "Erro ao solicitar empréstimo"
+    })
   }
 })
 
