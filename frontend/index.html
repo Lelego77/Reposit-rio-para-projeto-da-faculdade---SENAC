@@ -1,95 +1,257 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
-<title>CondoShare</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CondoShare</title>
 </head>
 
 <body>
 
-<h1>CondoShare</h1>
+    <h1>CondoShare</h1>
 
-<h2>Cadastrar Item</h2>
+    <h2>Cadastrar Item</h2>
 
-<input id="itemName" placeholder="Nome do item">
+    <input
+        id="itemName"
+        type="text"
+        placeholder="Nome do item"
+    >
 
-<button onclick="createItem()">Cadastrar</button>
+    <input
+        id="itemDescription"
+        type="text"
+        placeholder="Descrição"
+    >
 
-<h2>Itens disponíveis</h2>
+    <input
+        id="categoryId"
+        type="number"
+        placeholder="ID da categoria"
+    >
 
-<div id="items"></div>
+    <input
+        id="userId"
+        type="number"
+        placeholder="ID do usuário"
+    >
 
-<script>
+    <button onclick="createItem()">
+        Cadastrar
+    </button>
 
-async function loadItems(){
+    <h2>Itens disponíveis</h2>
 
-const res = await fetch("http://localhost:3000/items")
-const items = await res.json()
+    <div id="items"></div>
 
-const div = document.getElementById("items")
+    <script>
 
-div.innerHTML=""
+        const API_URL = "https://condoshare-backend.onrender.com";
 
-items.forEach(item=>{
 
-div.innerHTML += `
-<p>
-${item.name}
-<button onclick="reserveItem(${item.id})">Reservar</button>
-</p>
-`
+        async function loadItems() {
 
-})
+            try {
 
-}
+                const res = await fetch(`${API_URL}/items`);
 
-async function createItem(){
+                const items = await res.json();
 
-const name = document.getElementById("itemName").value
+                const div = document.getElementById("items");
 
-await fetch("http://localhost:3000/items",{
+                div.innerHTML = "";
 
-method:"POST",
+                if (items.length === 0) {
 
-headers:{
-"Content-Type":"application/json"
-},
+                    div.innerHTML = "<p>Nenhum item cadastrado.</p>";
 
-body:JSON.stringify({name})
+                    return;
+                }
 
-})
+                items.forEach(item => {
 
-loadItems()
+                    div.innerHTML += `
+                        <div>
+                            <p>
+                                <strong>${item.nome}</strong>
+                            </p>
 
-}
+                            <p>
+                                ${item.descricao || ""}
+                            </p>
 
-async function reserveItem(itemId){
+                            <p>
+                                Categoria: ${item.categoria}
+                            </p>
 
-await fetch("http://localhost:3000/reservations",{
+                            <p>
+                                Proprietário: ${item.proprietario}
+                            </p>
 
-method:"POST",
+                            <button onclick="reserveItem(${item.id_item})">
+                                Reservar
+                            </button>
 
-headers:{
-"Content-Type":"application/json"
-},
+                            <hr>
+                        </div>
+                    `;
 
-body:JSON.stringify({
+                });
 
-itemId:itemId,
-userId:1,
-date:"2026-03-08"
+            } catch (error) {
 
-})
+                console.error(error);
 
-})
+                document.getElementById("items").innerHTML =
+                    "<p>Erro ao carregar os itens.</p>";
+            }
 
-alert("Item reservado!")
+        }
 
-}
 
-loadItems()
+        async function createItem() {
 
-</script>
+            const name =
+                document.getElementById("itemName").value;
+
+            const description =
+                document.getElementById("itemDescription").value;
+
+            const categoryId =
+                document.getElementById("categoryId").value;
+
+            const userId =
+                document.getElementById("userId").value;
+
+
+            if (!name || !categoryId || !userId) {
+
+                alert(
+                    "Preencha nome, ID da categoria e ID do usuário."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const res = await fetch(`${API_URL}/items`, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        name: name,
+
+                        description: description,
+
+                        categoryId: Number(categoryId),
+
+                        userId: Number(userId)
+
+                    })
+
+                });
+
+
+                const data = await res.json();
+
+
+                if (!res.ok) {
+
+                    alert(
+                        data.error || "Erro ao cadastrar item."
+                    );
+
+                    return;
+                }
+
+
+                alert("Item cadastrado com sucesso!");
+
+                document.getElementById("itemName").value = "";
+
+                document.getElementById("itemDescription").value = "";
+
+                loadItems();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Erro ao conectar com o backend.");
+            }
+
+        }
+
+
+        async function reserveItem(itemId) {
+
+            try {
+
+                const res = await fetch(
+                    `${API_URL}/reservations`,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            itemId: itemId,
+
+                            userId: 1,
+
+                            startDate: "2026-09-05",
+
+                            returnDate: "2026-09-06"
+
+                        })
+
+                    }
+                );
+
+
+                const data = await res.json();
+
+
+                if (!res.ok) {
+
+                    alert(
+                        data.error || "Erro ao reservar item."
+                    );
+
+                    return;
+                }
+
+
+                alert("Item reservado com sucesso!");
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Erro ao conectar com o backend.");
+            }
+
+        }
+
+
+        loadItems();
+
+    </script>
 
 </body>
 
