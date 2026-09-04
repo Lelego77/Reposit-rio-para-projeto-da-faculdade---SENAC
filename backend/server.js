@@ -6,6 +6,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -14,10 +15,11 @@ const pool = new Pool({
   }
 })
 
-// TESTE DE CONEXÃO COM O BANCO
+// teste de conexão com o banco
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()")
+
     res.json({
       message: "Backend funcionando!",
       database: "Conectado",
@@ -25,8 +27,37 @@ app.get("/", async (req, res) => {
     })
   } catch (error) {
     console.error(error)
+
     res.status(500).json({
       error: "Erro ao conectar com o banco"
+    })
+  }
+})
+
+// teste de cadastro pela URL
+app.get("/test-user", async (req, res) => {
+  try {
+    const { name, email, password } = req.query
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        error: "Informe name, email e password"
+      })
+    }
+
+    const result = await pool.query(
+      `INSERT INTO usuario (nome, email, senha, tipo_usuario)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id_usuario, nome, email, tipo_usuario`,
+      [name, email, password, "morador"]
+    )
+
+    res.json(result.rows[0])
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      error: "Erro ao cadastrar usuário"
     })
   }
 })
@@ -34,14 +65,6 @@ app.get("/", async (req, res) => {
 // cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
-    console.log("BODY RECEBIDO:", req.body)
-
-    res.json({
-      body: req.body,
-      contentType: req.headers["content-type"]
-    })
-    return
-
     const { name, email, password } = req.body
 
     const result = await pool.query(
@@ -54,6 +77,7 @@ app.post("/users", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
+
     res.status(500).json({
       error: "Erro ao cadastrar usuário"
     })
@@ -76,6 +100,7 @@ app.post("/items", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
+
     res.status(500).json({
       error: "Erro ao cadastrar item"
     })
@@ -104,6 +129,7 @@ app.get("/items", async (req, res) => {
     res.json(result.rows)
   } catch (error) {
     console.error(error)
+
     res.status(500).json({
       error: "Erro ao listar itens"
     })
@@ -126,6 +152,7 @@ app.post("/reservations", async (req, res) => {
     res.json(result.rows[0])
   } catch (error) {
     console.error(error)
+
     res.status(500).json({
       error: "Erro ao solicitar empréstimo"
     })
