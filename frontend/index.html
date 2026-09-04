@@ -5,131 +5,1003 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CondoShare</title>
+    <title>CondoShare | Compartilhe com seus vizinhos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f6f6;
+            color: #202020;
+            line-height: 1.5;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #202020;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        .header-content {
+            max-width: 1150px;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .header-text {
+            font-size: 14px;
+            color: #d5d5d5;
+        }
+
+        /* MAIN */
+
+        main {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 40px 20px 70px;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #666;
+            font-size: 17px;
+        }
+
+        .hero-highlight {
+            margin-top: 25px;
+
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .highlight {
+            background: #eeeeee;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 30px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            margin-bottom: 22px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .section-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* FORM */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+
+            border: 1px solid #dcdcdc;
+            border-radius: 9px;
+            background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #555;
+        }
+
+        .button {
+            margin-top: 18px;
+
+            border: none;
+            border-radius: 9px;
+            padding: 13px 20px;
+
+            background: #202020;
+            color: white;
+            font-weight: 700;
+        }
+
+        .button:hover {
+            opacity: 0.85;
+        }
+
+        /* MESSAGES */
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 9px;
+            font-size: 14px;
+        }
+
+        .message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #256029;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffebee;
+            color: #b71c1c;
+        }
+
+        /* SEARCH */
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        /* ITEMS */
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .item-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 15px;
+            padding: 20px;
+
+            background: #fafafa;
+
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .item-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #202020;
+            color: white;
+
+            border-radius: 13px;
+
+            font-size: 25px;
+
+            margin-bottom: 15px;
+        }
+
+        .item-card h3 {
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .item-description {
+            color: #666;
+            font-size: 14px;
+            min-height: 42px;
+            margin-bottom: 10px;
+        }
+
+        .category {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            background: #e9e9e9;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            margin-bottom: 12px;
+        }
+
+        .owner {
+            font-size: 13px;
+            color: #555;
+
+            margin-bottom: 15px;
+        }
+
+        .reserve-button {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #202020;
+            color: white;
+
+            font-weight: 700;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            grid-column: 1 / -1;
+
+            padding: 30px;
+            text-align: center;
+
+            color: #777;
+        }
+
+        /* MODAL */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+            z-index: 1000;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+        }
+
+        .close {
+            border: none;
+            background: transparent;
+
+            font-size: 25px;
+            cursor: pointer;
+
+            color: #555;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancel-button {
+            flex: 1;
+
+            padding: 12px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            background: white;
+        }
+
+        .confirm-button {
+            flex: 1;
+
+            padding: 12px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #202020;
+            color: white;
+
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #202020;
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 25px;
+
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 18px 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            main {
+                padding: 25px 15px 50px;
+            }
+
+            .hero {
+                padding: 30px 25px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .section {
+                padding: 22px;
+            }
+
+            .form-grid,
+            .filters,
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+        }
+    </style>
 </head>
+
 
 <body>
 
-    <h1>CondoShare</h1>
+    <!-- HEADER -->
 
-    <h2>Cadastrar Item</h2>
+    <header>
 
-    <input
-        id="itemName"
-        type="text"
-        placeholder="Nome do item"
+        <div class="header-content">
+
+            <div class="logo">
+                CondoShare
+            </div>
+
+            <div class="header-text">
+                Compartilhe com quem mora perto.
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <h1>
+                Compartilhe. Empreste. Conecte.
+            </h1>
+
+            <p>
+                O CondoShare facilita o compartilhamento de itens
+                entre moradores do mesmo condomínio.
+                Encontre o que precisa ou disponibilize aquilo
+                que você não usa todos os dias.
+            </p>
+
+            <div class="hero-highlight">
+
+                <span class="highlight">
+                    🏠 Comunidade
+                </span>
+
+                <span class="highlight">
+                    📦 Itens compartilhados
+                </span>
+
+                <span class="highlight">
+                    🤝 Empréstimos
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- CADASTRO DE USUÁRIO -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    👤 Criar conta
+                </h2>
+
+                <p>
+                    Cadastre um morador para participar da comunidade.
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="userName">
+                        Nome
+                    </label>
+
+                    <input
+                        id="userName"
+                        type="text"
+                        placeholder="Ex.: Ana Souza"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userEmail">
+                        E-mail
+                    </label>
+
+                    <input
+                        id="userEmail"
+                        type="email"
+                        placeholder="Ex.: ana@email.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userPassword">
+                        Senha
+                    </label>
+
+                    <input
+                        id="userPassword"
+                        type="password"
+                        placeholder="Digite uma senha"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="button"
+                onclick="createUser()"
+            >
+                Cadastrar morador
+            </button>
+
+
+            <div
+                id="userMessage"
+                class="message"
+            ></div>
+
+        </section>
+
+
+        <!-- CADASTRO DE ITEM -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    📦 Compartilhar um item
+                </h2>
+
+                <p>
+                    Disponibilize um objeto para outros moradores.
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="itemName">
+                        Nome do item
+                    </label>
+
+                    <input
+                        id="itemName"
+                        type="text"
+                        placeholder="Ex.: Furadeira"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="itemDescription">
+                        Descrição
+                    </label>
+
+                    <input
+                        id="itemDescription"
+                        type="text"
+                        placeholder="Ex.: Furadeira elétrica"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="categoryId">
+                        Categoria
+                    </label>
+
+                    <select id="categoryId">
+
+                        <option value="">
+                            Selecione uma categoria
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="itemUserId">
+                        Proprietário
+                    </label>
+
+                    <select id="itemUserId">
+
+                        <option value="">
+                            Selecione o proprietário
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="button"
+                onclick="createItem()"
+            >
+                Disponibilizar item
+            </button>
+
+
+            <div
+                id="itemMessage"
+                class="message"
+            ></div>
+
+        </section>
+
+
+        <!-- ITENS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    🔎 Itens disponíveis
+                </h2>
+
+                <p>
+                    Encontre algo que você precisa no seu condomínio.
+                </p>
+
+            </div>
+
+
+            <div class="filters">
+
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="🔎 Buscar por nome ou descrição..."
+                    oninput="filterItems()"
+                >
+
+
+                <select
+                    id="categoryFilter"
+                    onchange="filterItems()"
+                >
+
+                    <option value="">
+                        Todas as categorias
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="items"
+                class="items-grid"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL DE RESERVA -->
+
+    <div
+        id="reservationModal"
+        class="modal"
     >
 
-    <input
-        id="itemDescription"
-        type="text"
-        placeholder="Descrição"
-    >
+        <div class="modal-content">
 
-    <input
-        id="categoryId"
-        type="number"
-        placeholder="ID da categoria"
-    >
+            <div class="modal-header">
 
-    <input
-        id="userId"
-        type="number"
-        placeholder="ID do usuário"
-    >
+                <h2>
+                    Solicitar empréstimo
+                </h2>
 
-    <button onclick="createItem()">
-        Cadastrar
-    </button>
+                <button
+                    class="close"
+                    onclick="closeModal()"
+                >
+                    ×
+                </button>
 
-    <h2>Itens disponíveis</h2>
+            </div>
 
-    <div id="items"></div>
+
+            <p
+                id="selectedItem"
+                style="margin-bottom: 20px; color: #666;"
+            ></p>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="reservationUser">
+                        Quem está solicitando?
+                    </label>
+
+                    <select id="reservationUser">
+
+                        <option value="">
+                            Selecione o morador
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="startDate">
+                        Data de início
+                    </label>
+
+                    <input
+                        id="startDate"
+                        type="date"
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="returnDate">
+                        Data de devolução
+                    </label>
+
+                    <input
+                        id="returnDate"
+                        type="date"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="reservationMessage"
+                class="message"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeModal()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    class="confirm-button"
+                    onclick="submitReservation()"
+                >
+                    Solicitar empréstimo
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        CondoShare — Sistema de compartilhamento de itens em condomínio
+
+    </footer>
+
 
     <script>
 
-        const API_URL = "https://condoshare-backend.onrender.com";
+        const API_URL =
+            "https://condoshare-backend.onrender.com";
 
 
-        async function loadItems() {
+        let allItems = [];
+
+        let allUsers = [];
+
+        let allCategories = [];
+
+        let selectedItemId = null;
+
+
+        // ==========================================
+        // MENSAGENS
+        // ==========================================
+
+        function showMessage(elementId, message, type) {
+
+            const element =
+                document.getElementById(elementId);
+
+            element.textContent = message;
+
+            element.className =
+                `message ${type}`;
+
+        }
+
+
+        // ==========================================
+        // USUÁRIOS
+        // ==========================================
+
+        async function loadUsers() {
 
             try {
 
-                const res = await fetch(`${API_URL}/items`);
+                const response =
+                    await fetch(`${API_URL}/users`);
 
-                const items = await res.json();
-
-                const div = document.getElementById("items");
-
-                div.innerHTML = "";
-
-                if (items.length === 0) {
-
-                    div.innerHTML = "<p>Nenhum item cadastrado.</p>";
-
-                    return;
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar usuários");
                 }
 
-                items.forEach(item => {
+                allUsers =
+                    await response.json();
 
-                    div.innerHTML += `
-                        <div>
-                            <p>
-                                <strong>${item.nome}</strong>
-                            </p>
 
-                            <p>
-                                ${item.descricao || ""}
-                            </p>
-
-                            <p>
-                                Categoria: ${item.categoria}
-                            </p>
-
-                            <p>
-                                Proprietário: ${item.proprietario}
-                            </p>
-
-                            <button onclick="reserveItem(${item.id_item})">
-                                Reservar
-                            </button>
-
-                            <hr>
-                        </div>
-                    `;
-
-                });
+                updateUserSelects();
 
             } catch (error) {
 
                 console.error(error);
 
-                document.getElementById("items").innerHTML =
-                    "<p>Erro ao carregar os itens.</p>";
             }
 
         }
 
 
-        async function createItem() {
+        function updateUserSelects() {
+
+            const itemUserSelect =
+                document.getElementById("itemUserId");
+
+            const reservationUserSelect =
+                document.getElementById("reservationUser");
+
+
+            itemUserSelect.innerHTML = `
+                <option value="">
+                    Selecione o proprietário
+                </option>
+            `;
+
+
+            reservationUserSelect.innerHTML = `
+                <option value="">
+                    Selecione o morador
+                </option>
+            `;
+
+
+            allUsers.forEach(user => {
+
+                itemUserSelect.innerHTML += `
+                    <option value="${user.id_usuario}">
+                        ${user.nome}
+                    </option>
+                `;
+
+
+                reservationUserSelect.innerHTML += `
+                    <option value="${user.id_usuario}">
+                        ${user.nome}
+                    </option>
+                `;
+
+            });
+
+        }
+
+
+        async function createUser() {
 
             const name =
-                document.getElementById("itemName").value;
+                document.getElementById("userName").value.trim();
 
-            const description =
-                document.getElementById("itemDescription").value;
+            const email =
+                document.getElementById("userEmail").value.trim();
 
-            const categoryId =
-                document.getElementById("categoryId").value;
-
-            const userId =
-                document.getElementById("userId").value;
+            const password =
+                document.getElementById("userPassword").value;
 
 
-            if (!name || !categoryId || !userId) {
+            if (!name || !email || !password) {
 
-                alert(
-                    "Preencha nome, ID da categoria e ID do usuário."
+                showMessage(
+                    "userMessage",
+                    "Preencha nome, e-mail e senha.",
+                    "error"
                 );
 
                 return;
@@ -138,68 +1010,8 @@
 
             try {
 
-                const res = await fetch(`${API_URL}/items`, {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        name: name,
-
-                        description: description,
-
-                        categoryId: Number(categoryId),
-
-                        userId: Number(userId)
-
-                    })
-
-                });
-
-
-                const data = await res.json();
-
-
-                if (!res.ok) {
-
-                    alert(
-                        data.error || "Erro ao cadastrar item."
-                    );
-
-                    return;
-                }
-
-
-                alert("Item cadastrado com sucesso!");
-
-                document.getElementById("itemName").value = "";
-
-                document.getElementById("itemDescription").value = "";
-
-                loadItems();
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert("Erro ao conectar com o backend.");
-            }
-
-        }
-
-
-        async function reserveItem(itemId) {
-
-            try {
-
-                const res = await fetch(
-                    `${API_URL}/reservations`,
-                    {
+                const response =
+                    await fetch(`${API_URL}/users`, {
 
                         method: "POST",
 
@@ -209,47 +1021,577 @@
 
                         body: JSON.stringify({
 
-                            itemId: itemId,
-
-                            userId: 1,
-
-                            startDate: "2026-09-05",
-
-                            returnDate: "2026-09-06"
+                            name: name,
+                            email: email,
+                            password: password
 
                         })
 
-                    }
-                );
+                    });
 
 
-                const data = await res.json();
+                const data =
+                    await response.json();
 
 
-                if (!res.ok) {
+                if (!response.ok) {
 
-                    alert(
-                        data.error || "Erro ao reservar item."
+                    showMessage(
+                        "userMessage",
+                        data.error || "Erro ao cadastrar morador.",
+                        "error"
                     );
 
                     return;
                 }
 
 
-                alert("Item reservado com sucesso!");
+                showMessage(
+                    "userMessage",
+                    `Morador cadastrado com sucesso! ID: ${data.id_usuario}`,
+                    "success"
+                );
+
+
+                document.getElementById("userName").value = "";
+
+                document.getElementById("userEmail").value = "";
+
+                document.getElementById("userPassword").value = "";
+
+
+                await loadUsers();
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "userMessage",
+                    "Erro ao conectar com o backend.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // CATEGORIAS
+        // ==========================================
+
+        async function loadCategories() {
+
+            try {
+
+                const response =
+                    await fetch(`${API_URL}/categories`);
+
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar categorias");
+                }
+
+                allCategories =
+                    await response.json();
+
+
+                const categorySelect =
+                    document.getElementById("categoryId");
+
+                const categoryFilter =
+                    document.getElementById("categoryFilter");
+
+
+                categorySelect.innerHTML = `
+                    <option value="">
+                        Selecione uma categoria
+                    </option>
+                `;
+
+
+                categoryFilter.innerHTML = `
+                    <option value="">
+                        Todas as categorias
+                    </option>
+                `;
+
+
+                allCategories.forEach(category => {
+
+                    categorySelect.innerHTML += `
+                        <option value="${category.id_categoria}">
+                            ${category.nome}
+                        </option>
+                    `;
+
+
+                    categoryFilter.innerHTML += `
+                        <option value="${category.id_categoria}">
+                            ${category.nome}
+                        </option>
+                    `;
+
+                });
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+
+        // ==========================================
+        // ITENS
+        // ==========================================
+
+        async function loadItems() {
+
+            try {
+
+                const response =
+                    await fetch(`${API_URL}/items`);
+
+
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar itens");
+                }
+
+
+                allItems =
+                    await response.json();
+
+
+                displayItems(allItems);
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                document.getElementById("items").innerHTML = `
+                    <p class="empty">
+                        Não foi possível carregar os itens.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        async function createItem() {
+
+            const name =
+                document.getElementById("itemName").value.trim();
+
+            const description =
+                document.getElementById("itemDescription").value.trim();
+
+            const categoryId =
+                document.getElementById("categoryId").value;
+
+            const userId =
+                document.getElementById("itemUserId").value;
+
+
+            if (!name || !categoryId || !userId) {
+
+                showMessage(
+                    "itemMessage",
+                    "Preencha nome, categoria e proprietário.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(`${API_URL}/items`, {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            name: name,
+
+                            description: description,
+
+                            categoryId: Number(categoryId),
+
+                            userId: Number(userId)
+
+                        })
+
+                    });
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    showMessage(
+                        "itemMessage",
+                        data.error || "Erro ao cadastrar item.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                showMessage(
+                    "itemMessage",
+                    "Item disponibilizado com sucesso!",
+                    "success"
+                );
+
+
+                document.getElementById("itemName").value = "";
+
+                document.getElementById("itemDescription").value = "";
+
+                document.getElementById("categoryId").value = "";
+
+                document.getElementById("itemUserId").value = "";
+
+
+                await loadItems();
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "itemMessage",
+                    "Erro ao conectar com o backend.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        function displayItems(items) {
+
+            const container =
+                document.getElementById("items");
+
+
+            container.innerHTML = "";
+
+
+            if (items.length === 0) {
+
+                container.innerHTML = `
+                    <p class="empty">
+                        Nenhum item encontrado.
+                    </p>
+                `;
+
+                return;
+            }
+
+
+            items.forEach(item => {
+
+                container.innerHTML += `
+
+                    <article class="item-card">
+
+                        <div class="item-icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            ${item.nome}
+                        </h3>
+
+                        <span class="category">
+                            ${item.categoria}
+                        </span>
+
+                        <p class="item-description">
+                            ${item.descricao || "Sem descrição."}
+                        </p>
+
+                        <p class="owner">
+                            <strong>Disponibilizado por:</strong>
+                            ${item.proprietario}
+                        </p>
+
+                        <button
+                            class="reserve-button"
+                            onclick="openReservation(${item.id_item}, '${escapeHtml(item.nome)}')"
+                        >
+                            Solicitar empréstimo
+                        </button>
+
+                    </article>
+
+                `;
+
+            });
+
+        }
+
+
+        function escapeHtml(text) {
+
+            return text
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'")
+                .replace(/"/g, "&quot;");
+
+        }
+
+
+        function filterItems() {
+
+            const search =
+                document
+                    .getElementById("search")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            const category =
+                document
+                    .getElementById("categoryFilter")
+                    .value;
+
+
+            const filtered =
+                allItems.filter(item => {
+
+                    const matchesSearch =
+
+                        item.nome
+                            .toLowerCase()
+                            .includes(search)
+
+                        ||
+
+                        (item.descricao || "")
+                            .toLowerCase()
+                            .includes(search);
+
+
+                    const matchesCategory =
+
+                        !category
+
+                        ||
+
+                        String(item.id_categoria) ===
+                        String(category);
+
+
+                    return matchesSearch &&
+                        matchesCategory;
+
+                });
+
+
+            displayItems(filtered);
+
+        }
+
+
+        // ==========================================
+        // RESERVA
+        // ==========================================
+
+        function openReservation(itemId, itemName) {
+
+            selectedItemId =
+                itemId;
+
+
+            document.getElementById("selectedItem").textContent =
+                `Você está solicitando o empréstimo de: ${itemName}`;
+
+
+            document.getElementById("reservationMessage").className =
+                "message";
+
+
+            document.getElementById("reservationMessage").textContent =
+                "";
+
+
+            document.getElementById("reservationUser").value =
+                "";
+
+
+            document.getElementById("startDate").value =
+                "";
+
+
+            document.getElementById("returnDate").value =
+                "";
+
+
+            document
+                .getElementById("reservationModal")
+                .classList
+                .add("active");
+
+        }
+
+
+        function closeModal() {
+
+            document
+                .getElementById("reservationModal")
+                .classList
+                .remove("active");
+
+            selectedItemId = null;
+
+        }
+
+
+        async function submitReservation() {
+
+            const userId =
+                document.getElementById("reservationUser").value;
+
+            const startDate =
+                document.getElementById("startDate").value;
+
+            const returnDate =
+                document.getElementById("returnDate").value;
+
+
+            if (!userId || !startDate || !returnDate) {
+
+                showMessage(
+                    "reservationMessage",
+                    "Preencha morador e as duas datas.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (returnDate < startDate) {
+
+                showMessage(
+                    "reservationMessage",
+                    "A data de devolução deve ser posterior à data de início.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/reservations`,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                itemId: Number(selectedItemId),
+
+                                userId: Number(userId),
+
+                                startDate: startDate,
+
+                                returnDate: returnDate
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    showMessage(
+                        "reservationMessage",
+                        data.error ||
+                        "Erro ao solicitar empréstimo.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                showMessage(
+                    "reservationMessage",
+                    "Solicitação enviada com sucesso! O proprietário foi notificado.",
+                    "success"
+                );
+
+
+                setTimeout(() => {
+
+                    closeModal();
+
+                }, 1800);
 
 
             } catch (error) {
 
                 console.error(error);
 
-                alert("Erro ao conectar com o backend.");
+                showMessage(
+                    "reservationMessage",
+                    "Erro ao conectar com o backend.",
+                    "error"
+                );
+
             }
 
         }
 
 
-        loadItems();
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
+
+        async function initialize() {
+
+            await loadUsers();
+
+            await loadCategories();
+
+            await loadItems();
+
+        }
+
+
+        initialize();
 
     </script>
 
