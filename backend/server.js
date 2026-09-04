@@ -15,7 +15,7 @@ const pool = new Pool({
   }
 })
 
-// teste de conexão com o banco
+// Teste de conexão com o banco
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()")
@@ -34,37 +34,23 @@ app.get("/", async (req, res) => {
   }
 })
 
-// teste de cadastro pela URL
-app.get("/test-user", async (req, res) => {
-  try {
-    const { name, email, password } = req.query
+// Diagnóstico do recebimento dos dados
+app.get("/test-user", (req, res) => {
+  console.log("QUERY RECEBIDA:", req.query)
 
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        error: "Informe name, email e password"
-      })
-    }
-
-    const result = await pool.query(
-      `INSERT INTO usuario (nome, email, senha, tipo_usuario)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id_usuario, nome, email, tipo_usuario`,
-      [name, email, password, "morador"]
-    )
-
-    res.json(result.rows[0])
-  } catch (error) {
-    console.error(error)
-
-    res.status(500).json({
-      error: "Erro ao cadastrar usuário"
-    })
-  }
+  res.json({
+    query: req.query,
+    name: req.query.name,
+    email: req.query.email,
+    password: req.query.password
+  })
 })
 
-// cadastrar usuário
+// Cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
+    console.log("BODY RECEBIDO:", req.body)
+
     const { name, email, password } = req.body
 
     const result = await pool.query(
@@ -84,7 +70,7 @@ app.post("/users", async (req, res) => {
   }
 })
 
-// cadastrar item
+// Cadastrar item
 app.post("/items", async (req, res) => {
   try {
     const { name, description, categoryId, userId } = req.body
@@ -107,7 +93,7 @@ app.post("/items", async (req, res) => {
   }
 })
 
-// listar itens
+// Listar itens
 app.get("/items", async (req, res) => {
   try {
     const result = await pool.query(
@@ -136,7 +122,7 @@ app.get("/items", async (req, res) => {
   }
 })
 
-// reservar item
+// Solicitar empréstimo
 app.post("/reservations", async (req, res) => {
   try {
     const { itemId, userId, startDate, returnDate } = req.body
