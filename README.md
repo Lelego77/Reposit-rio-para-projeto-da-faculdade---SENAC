@@ -1,6 +1,10 @@
 # CondoShare – Projeto Integrador SENAC
 
-Sistema desenvolvido para permitir o **compartilhamento de itens entre moradores de um condomínio**, facilitando o empréstimo e reserva de objetos como ferramentas, eletrodomésticos e equipamentos.
+Sistema desenvolvido para permitir o **compartilhamento de itens entre moradores de um condomínio**, facilitando o empréstimo e a reserva de objetos de uso ocasional, como ferramentas, eletrodomésticos, equipamentos eletrônicos e itens esportivos.
+
+O projeto foi desenvolvido como parte da disciplina de Projeto Integrador do curso de Análise e Desenvolvimento de Sistemas do Centro Universitário Senac.
+
+---
 
 ## Integrantes do Projeto
 
@@ -9,90 +13,348 @@ Sistema desenvolvido para permitir o **compartilhamento de itens entre moradores
 * Flaviano Lacerda de Araujo
 * Julia Soares Santos
 * Letícia Silva Ferreira
-* Miguel Oliveira Ferreira da Silva
 * Vinicius Alves Mangueira
+
+---
 
 ## Descrição do Projeto
 
-O CondoShare é uma plataforma simples que permite que moradores de um condomínio compartilhem itens entre si.
+O **CondoShare** é uma plataforma web criada para facilitar o compartilhamento de objetos entre moradores de um mesmo condomínio.
 
-A aplicação permite:
+A proposta surgiu da necessidade de permitir que itens que são utilizados com pouca frequência possam ser compartilhados entre vizinhos, evitando compras desnecessárias e facilitando o acesso a objetos que já estão disponíveis dentro da comunidade.
 
-* Cadastro de itens disponíveis
-* Listagem de itens compartilhados
-* Reserva de itens por moradores
+A aplicação permite que moradores cadastrem itens, consultem objetos disponíveis, pesquisem por itens específicos, filtrem resultados por categoria e solicitem empréstimos informando o período desejado.
 
-O objetivo do projeto é demonstrar o funcionamento de um sistema básico de compartilhamento utilizando tecnologias web.
+Quando uma solicitação de empréstimo é realizada, o sistema registra a solicitação no banco de dados e gera automaticamente uma notificação para o proprietário do item.
+
+O projeto foi desenvolvido como um **Proof of Concept (PoC)**, com foco na demonstração do funcionamento integrado entre interface, backend e banco de dados.
+
+---
+
+## Objetivo
+
+O principal objetivo do CondoShare é criar uma solução digital simples para facilitar o compartilhamento de objetos entre moradores de um condomínio.
+
+O sistema busca:
+
+* Facilitar o acesso a itens de uso ocasional;
+* Incentivar o compartilhamento entre moradores;
+* Evitar a compra de objetos que são utilizados poucas vezes;
+* Organizar as solicitações de empréstimos;
+* Permitir a consulta de itens disponíveis;
+* Registrar as informações dos empréstimos;
+* Notificar o proprietário quando seu item for solicitado.
+
+---
+
+## Personas
+
+### Carlos Oliveira
+
+**Idade:** 42 anos  
+**Profissão:** Engenheiro civil
+
+Carlos é morador de um condomínio e possui ferramentas e outros objetos que utiliza ocasionalmente.
+
+Ele deseja compartilhar esses itens com outros moradores, mas precisa ter maior controle sobre as solicitações de empréstimo e sobre quem está utilizando seus objetos.
+
+### Mariana Souza
+
+**Idade:** 28 anos  
+**Profissão:** Designer freelancer
+
+Mariana mora em um condomínio e costuma utilizar dispositivos móveis para resolver suas necessidades do dia a dia.
+
+Ela procura uma forma prática de encontrar objetos que precisa utilizar ocasionalmente sem precisar comprá-los.
+
+Para ela, é importante conseguir pesquisar itens, utilizar categorias e realizar uma solicitação de empréstimo de forma simples.
+
+---
+
+## Principais Funcionalidades
+
+### Cadastro de usuários
+
+O sistema permite cadastrar moradores para que eles possam participar do compartilhamento de itens.
+
+Funcionalidades:
+
+* Cadastro de nome;
+* Cadastro de e-mail;
+* Cadastro de senha;
+* Definição do tipo de usuário;
+* Listagem dos usuários cadastrados.
+
+---
+
+### Cadastro de itens
+
+Os moradores podem cadastrar objetos que desejam disponibilizar para compartilhamento.
+
+Cada item possui:
+
+* Nome;
+* Descrição;
+* Categoria;
+* Proprietário;
+* Informação de disponibilidade;
+* Campo destinado à foto do item.
+
+---
+
+### Consulta de itens
+
+A plataforma apresenta os itens disponíveis para empréstimo.
+
+Os itens são exibidos em formato de cards contendo suas principais informações.
+
+A listagem também apresenta o proprietário e a categoria de cada item.
+
+---
+
+### Busca e filtros
+
+Para facilitar a localização dos objetos, o sistema possui:
+
+* Busca pelo nome do item;
+* Busca pela descrição;
+* Filtro por categoria.
+
+Dessa forma, o morador consegue encontrar mais rapidamente o objeto que deseja solicitar.
+
+---
+
+### Solicitação de empréstimo
+
+O morador pode selecionar um item e solicitar seu empréstimo.
+
+Durante a solicitação são informados:
+
+* Item desejado;
+* Morador solicitante;
+* Data de início do empréstimo;
+* Data prevista para devolução.
+
+O sistema realiza validações para evitar que a data de devolução seja anterior à data de início.
+
+A solicitação é registrada inicialmente com o status:
+
+`pendente`
+
+---
+
+### Notificações
+
+Após uma solicitação de empréstimo, o sistema cria automaticamente uma notificação para o proprietário do item.
+
+A notificação informa que existe uma nova solicitação relacionada ao seu objeto.
+
+---
+
+## Fluxo Principal do Sistema
+
+O fluxo principal implementado no Proof of Concept funciona da seguinte maneira:
+
+1. O morador acessa a plataforma;
+2. Visualiza os itens disponíveis;
+3. Pesquisa ou filtra um item;
+4. Seleciona o objeto desejado;
+5. Informa o morador que realizará o empréstimo;
+6. Define a data de início;
+7. Define a data de devolução;
+8. Envia a solicitação;
+9. O frontend envia os dados para a API;
+10. O backend valida as informações;
+11. O empréstimo é registrado no banco de dados;
+12. Uma notificação é criada para o proprietário do item.
+
+---
 
 ## Tecnologias Utilizadas
 
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+
+O frontend é responsável pela interface visual da aplicação, interação com o usuário, apresentação dos itens, formulários, filtros e envio das solicitações para o backend.
+
+### Backend
+
 * Node.js
 * Express
-* HTML
-* JavaScript
+* CORS
+* pg (PostgreSQL)
+
+O backend é responsável por disponibilizar a API, receber as requisições do frontend, realizar validações e executar operações no banco de dados.
+
+### Banco de Dados
+
+* PostgreSQL
+* Supabase
+
+O banco de dados armazena usuários, categorias, itens, empréstimos e notificações.
+
+### Versionamento
+
 * Git
 * GitHub
 
-## Estrutura do Projeto
+### Hospedagem
 
-```
-Repositório-para-projeto-da-faculdade-SENAC
-│
-├── backend
-│   ├── server.js
-│   └── package.json
-│
-├── frontend
-│   └── index.html
-│
-└── README.md
-```
+* Render – Backend
 
-## Como executar o projeto
+---
 
-### 1. Clonar o repositório
+## Integração e Hospedagem
 
-git clone https://github.com/Lelego77/Reposit-rio-para-projeto-da-faculdade---SENAC
+O CondoShare é composto por três partes principais:
 
-### 2. Entrar na pasta do projeto
+* **Frontend:** interface da aplicação desenvolvida em HTML, CSS e JavaScript.
+* **Backend:** API desenvolvida em Node.js e Express, responsável pelo processamento das requisições.
+* **Banco de dados:** PostgreSQL hospedado no Supabase, responsável pelo armazenamento das informações do sistema.
 
-cd Reposit-rio-para-projeto-da-faculdade---SENAC
+Durante a execução, o frontend se comunica com o backend por meio da API. O backend, por sua vez, realiza as consultas e alterações necessárias no banco de dados.
 
-### 3. Entrar na pasta do backend
+### Serviços utilizados
 
-cd backend
+* **GitHub:** armazenamento do código-fonte e controle de versão do projeto.
+* **Render:** hospedagem do backend e da API.
+* **Supabase:** hospedagem do banco de dados PostgreSQL.
+* **GitHub Pages:** previsto para a publicação da Landing Page do projeto.
 
-### 4. Instalar dependências
+A arquitetura utilizada pode ser resumida da seguinte forma:
 
-npm install
+**Frontend → API/Backend → Banco de Dados**
 
-### 5. Iniciar o servidor
+O frontend é acessado pelo usuário, o backend processa as solicitações e o Supabase armazena os dados da aplicação.
 
-node server.js
+---
 
-O servidor será iniciado localmente na porta configurada no arquivo server.js (exemplo: http://localhost:3000).
+## Banco de Dados
 
-## Executar a interface
+O sistema utiliza um banco de dados relacional PostgreSQL hospedado no Supabase.
 
-Para utilizar o sistema:
+O banco de dados foi desenvolvido a partir do modelo físico definido para o projeto.
 
-1. Abra a pasta **frontend**
-2. Abra o arquivo **index.html** em um navegador
+### Tabelas
 
-Assim será possível visualizar os itens cadastrados e realizar reservas.
+#### `usuario`
 
-## Repositório
+Armazena os dados dos moradores cadastrados.
 
-Projeto hospedado no GitHub para fins acadêmicos no curso do SENAC.
+Principais campos:
 
-## Melhorias planejadas
+* `id_usuario` – identificador do usuário;
+* `nome` – nome do morador;
+* `email` – e-mail do usuário;
+* `senha` – senha cadastrada;
+* `tipo_usuario` – tipo do usuário.
 
-Como continuidade do projeto, o grupo pode evoluir a aplicação com as seguintes melhorias:
+---
 
-* Autenticação de moradores com login e senha
-* Histórico de empréstimos e devoluções
-* Filtro de itens por categoria e disponibilidade
-* Validação de dados no backend para evitar reservas inválidas
-* Interface mais responsiva para uso em dispositivos móveis
+#### `categoria`
 
+Armazena as categorias utilizadas para organizar os itens.
 
+Principais campos:
+
+* `id_categoria` – identificador da categoria;
+* `nome` – nome da categoria.
+
+Categorias utilizadas no projeto incluem:
+
+* Ferramentas;
+* Cozinha;
+* Eletrônicos;
+* Esportes.
+
+---
+
+#### `item`
+
+Armazena os objetos disponibilizados pelos moradores.
+
+Principais campos:
+
+* `id_item` – identificador do item;
+* `nome` – nome do objeto;
+* `descricao` – descrição;
+* `foto` – referência para foto do item;
+* `disponivel` – indica se o item está disponível;
+* `id_categoria` – categoria do item;
+* `id_usuario` – proprietário do item.
+
+---
+
+#### `emprestimo`
+
+Registra as solicitações de empréstimos realizadas pelos moradores.
+
+Principais campos:
+
+* `id_emprestimo` – identificador do empréstimo;
+* `id_item` – item solicitado;
+* `id_usuario` – usuário que realizou a solicitação;
+* `data_solicitacao` – data da solicitação;
+* `data_inicio` – início do empréstimo;
+* `data_devolucao` – data prevista para devolução;
+* `status` – situação da solicitação.
+
+---
+
+#### `notificacao`
+
+Armazena as notificações enviadas aos moradores.
+
+Principais campos:
+
+* `id_notificacao` – identificador da notificação;
+* `id_usuario` – usuário que recebe a notificação;
+* `mensagem` – conteúdo da notificação;
+* `data_envio` – data e hora do envio;
+* `lida` – indica se a notificação foi visualizada.
+
+---
+
+## Relacionamentos do Banco de Dados
+
+O banco de dados possui relacionamentos entre usuários, itens, categorias, empréstimos e notificações.
+
+Um usuário pode possuir vários itens.
+
+Cada item pertence a uma categoria e possui um proprietário.
+
+Os empréstimos estão relacionados aos itens e aos usuários que realizam as solicitações.
+
+As notificações estão relacionadas aos usuários que devem recebê-las.
+
+O script de criação das tabelas, chaves primárias e relacionamentos está disponível no arquivo:
+
+`database/schema.sql`
+
+---
+
+## API / Backend
+
+O backend disponibiliza uma API REST para comunicação entre o frontend e o banco de dados.
+
+### Usuários
+
+#### GET `/users`
+
+Retorna a lista de usuários cadastrados.
+
+#### POST `/users`
+
+Realiza o cadastro de um novo usuário.
+
+Exemplo de dados enviados:
+
+```json
+{
+  "name": "Mariana Souza",
+  "email": "mariana@condoshare.com",
+  "password": "senha"
+}
