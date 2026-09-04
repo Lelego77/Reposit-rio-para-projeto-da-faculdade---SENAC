@@ -17,6 +17,8 @@ const pool = new Pool({
 // cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
+    console.log("BODY RECEBIDO:", req.body)
+
     const { name, email, password } = req.body
 
     const result = await pool.query(
