@@ -15,7 +15,11 @@ const pool = new Pool({
   }
 })
 
-// Teste de conexão com o banco
+
+// ==========================================
+// TESTE DO BACKEND + BANCO
+// ==========================================
+
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()")
@@ -34,6 +38,35 @@ app.get("/", async (req, res) => {
   }
 })
 
+
+// ==========================================
+// USUÁRIOS
+// ==========================================
+
+// Listar usuários
+app.get("/users", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT
+        id_usuario,
+        nome,
+        email,
+        tipo_usuario
+       FROM usuario
+       ORDER BY nome`
+    )
+
+    res.json(result.rows)
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      error: "Erro ao listar usuários"
+    })
+  }
+})
+
+
 // Cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
@@ -46,7 +79,8 @@ app.post("/users", async (req, res) => {
     }
 
     const result = await pool.query(
-      `INSERT INTO usuario (nome, email, senha, tipo_usuario)
+      `INSERT INTO usuario
+       (nome, email, senha, tipo_usuario)
        VALUES ($1, $2, $3, $4)
        RETURNING id_usuario, nome, email, tipo_usuario`,
       [name, email, password, "morador"]
@@ -56,16 +90,57 @@ app.post("/users", async (req, res) => {
   } catch (error) {
     console.error(error)
 
+    if (error.code === "23505") {
+      return res.status(400).json({
+        error: "Este e-mail já está cadastrado."
+      })
+    }
+
     res.status(500).json({
       error: "Erro ao cadastrar usuário"
     })
   }
 })
 
+
+// ==========================================
+// CATEGORIAS
+// ==========================================
+
+app.get("/categories", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT
+        id_categoria,
+        nome
+       FROM categoria
+       ORDER BY nome`
+    )
+
+    res.json(result.rows)
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      error: "Erro ao listar categorias"
+    })
+  }
+})
+
+
+// ==========================================
+// ITENS
+// ==========================================
+
 // Cadastrar item
 app.post("/items", async (req, res) => {
   try {
-    const { name, description, categoryId, userId } = req.body
+    const {
+      name,
+      description,
+      categoryId,
+      userId
+    } = req.body
 
     if (!name || !categoryId || !userId) {
       return res.status(400).json({
@@ -75,10 +150,20 @@ app.post("/items", async (req, res) => {
 
     const result = await pool.query(
       `INSERT INTO item
-       (nome, descricao, id_categoria, id_usuario)
+       (
+         nome,
+         descricao,
+         id_categoria,
+         id_usuario
+       )
        VALUES ($1, $2, $3, $4)
        RETURNING *`,
-      [name, description, categoryId, userId]
+      [
+        name,
+        description || null,
+        categoryId,
+        userId
+      ]
     )
 
     res.status(201).json(result.rows[0])
@@ -91,6 +176,7 @@ app.post("/items", async (req, res) => {
   }
 })
 
+
 // Listar itens
 app.get("/items", async (req, res) => {
   try {
@@ -101,13 +187,17 @@ app.get("/items", async (req, res) => {
         item.descricao,
         item.foto,
         item.disponivel,
+        categoria.id_categoria,
         categoria.nome AS categoria,
+        usuario.id_usuario,
         usuario.nome AS proprietario
        FROM item
        JOIN categoria
          ON item.id_categoria = categoria.id_categoria
        JOIN usuario
-         ON item.id_usuario = usuario.id_usuario`
+         ON item.id_usuario = usuario.id_usuario
+       WHERE item.disponivel = TRUE
+       ORDER BY item.id_item DESC`
     )
 
     res.json(result.rows)
@@ -120,26 +210,94 @@ app.get("/items", async (req, res) => {
   }
 })
 
-// Solicitar empréstimo
+
+// ==========================================
+// EMPRÉSTIMOS
+// ==========================================
+
 app.post("/reservations", async (req, res) => {
   try {
-    const { itemId, userId, startDate, returnDate } = req.body
+    const {
+      itemId,
+      userId,
+      startDate,
+      returnDate
+    } = req.body
 
     if (!itemId || !userId || !startDate || !returnDate) {
       return res.status(400).json({
-        error: "Item, usuário, data de início e data de devolução são obrigatórios"
+        error:
+          "Item, usuário, data de início e data de devolução são obrigatórios"
       })
     }
 
-    const result = await pool.query(
-      `INSERT INTO emprestimo
-       (id_item, id_usuario, data_inicio, data_devolucao)
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-      [itemId, userId, startDate, returnDate]
+    if (returnDate < startDate) {
+      return res.status(400).json({
+        error:
+          "A data de devolução deve ser posterior à data de início."
+      })
+    }
+
+    // Verificar se o item existe e está disponível
+    const itemResult = await pool.query(
+      `SELECT
+        id_item,
+        nome,
+        id_usuario
+       FROM item
+       WHERE id_item = $1
+       AND disponivel = TRUE`,
+      [itemId]
     )
 
-    res.status(201).json(result.rows[0])
+    if (itemResult.rows.length === 0) {
+      return res.status(400).json({
+        error: "Este item não está disponível."
+      })
+    }
+
+    const item = itemResult.rows[0]
+
+    // Criar empréstimo
+    const loanResult = await pool.query(
+      `INSERT INTO emprestimo
+       (
+         id_item,
+         id_usuario,
+         data_inicio,
+         data_devolucao,
+         status
+       )
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+      [
+        itemId,
+        userId,
+        startDate,
+        returnDate,
+        "pendente"
+      ]
+    )
+
+    // Criar notificação para o proprietário
+    await pool.query(
+      `INSERT INTO notificacao
+       (
+         id_usuario,
+         mensagem
+       )
+       VALUES ($1, $2)`,
+      [
+        item.id_usuario,
+        `Nova solicitação de empréstimo para o item "${item.nome}".`
+      ]
+    )
+
+    res.status(201).json({
+      message: "Solicitação de empréstimo enviada!",
+      reservation: loanResult.rows[0]
+    })
+
   } catch (error) {
     console.error(error)
 
@@ -148,6 +306,11 @@ app.post("/reservations", async (req, res) => {
     })
   }
 })
+
+
+// ==========================================
+// INICIAR SERVIDOR
+// ==========================================
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor rodando")
