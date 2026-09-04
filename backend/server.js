@@ -15,7 +15,7 @@ const pool = new Pool({
   }
 })
 
-// Teste de conexão com o banco
+// Teste de conexão
 app.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()")
@@ -34,23 +34,37 @@ app.get("/", async (req, res) => {
   }
 })
 
-// Diagnóstico do recebimento dos dados
-app.get("/test-user", (req, res) => {
-  console.log("QUERY RECEBIDA:", req.query)
+// Cadastrar usuário pela URL - teste
+app.get("/test-user", async (req, res) => {
+  try {
+    const { name, email, password } = req.query
 
-  res.json({
-    query: req.query,
-    name: req.query.name,
-    email: req.query.email,
-    password: req.query.password
-  })
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        error: "Informe name, email e password"
+      })
+    }
+
+    const result = await pool.query(
+      `INSERT INTO usuario (nome, email, senha, tipo_usuario)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id_usuario, nome, email, tipo_usuario`,
+      [name, email, password, "morador"]
+    )
+
+    res.json(result.rows[0])
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      error: "Erro ao cadastrar usuário"
+    })
+  }
 })
 
 // Cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
-    console.log("BODY RECEBIDO:", req.body)
-
     const { name, email, password } = req.body
 
     const result = await pool.query(
