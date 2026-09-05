@@ -43,7 +43,6 @@ app.get("/", async (req, res) => {
 // USUÁRIOS
 // ==========================================
 
-// Listar usuários
 app.get("/users", async (req, res) => {
   try {
     const result = await pool.query(
@@ -67,7 +66,6 @@ app.get("/users", async (req, res) => {
 })
 
 
-// Cadastrar usuário
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password } = req.body
@@ -132,7 +130,6 @@ app.get("/categories", async (req, res) => {
 // ITENS
 // ==========================================
 
-// Cadastrar item
 app.post("/items", async (req, res) => {
   try {
     const {
@@ -177,7 +174,7 @@ app.post("/items", async (req, res) => {
 })
 
 
-// Listar itens
+// Listar itens disponíveis
 app.get("/items", async (req, res) => {
   try {
     const result = await pool.query(
@@ -212,6 +209,53 @@ app.get("/items", async (req, res) => {
 
 
 // ==========================================
+// RESERVAS EXISTENTES
+// ==========================================
+
+app.get("/reservations", async (req, res) => {
+  try {
+    const { itemId } = req.query
+
+    let query = `
+      SELECT
+        emprestimo.id_emprestimo,
+        emprestimo.id_item,
+        emprestimo.id_usuario,
+        emprestimo.data_inicio,
+        emprestimo.data_devolucao,
+        emprestimo.status,
+        usuario.nome AS solicitante
+      FROM emprestimo
+      JOIN usuario
+        ON emprestimo.id_usuario = usuario.id_usuario
+      WHERE emprestimo.status = 'pendente'
+    `
+
+    const params = []
+
+    if (itemId) {
+      query += ` AND emprestimo.id_item = $1`
+      params.push(itemId)
+    }
+
+    query += `
+      ORDER BY emprestimo.data_inicio
+    `
+
+    const result = await pool.query(query, params)
+
+    res.json(result.rows)
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      error: "Erro ao listar reservas"
+    })
+  }
+})
+
+
+// ==========================================
 // EMPRÉSTIMOS
 // ==========================================
 
@@ -231,10 +275,22 @@ app.post("/reservations", async (req, res) => {
       })
     }
 
+    // Data atual no formato YYYY-MM-DD
+    const today = new Date().toISOString().split("T")[0]
+
+    // Não permitir datas anteriores a hoje
+    if (startDate < today) {
+      return res.status(400).json({
+        error:
+          "A data de início não pode ser anterior à data de hoje."
+      })
+    }
+
+    // A devolução não pode ser anterior ao início
     if (returnDate < startDate) {
       return res.status(400).json({
         error:
-          "A data de devolução deve ser posterior à data de início."
+          "A data de devolução não pode ser anterior à data de início."
       })
     }
 
@@ -258,7 +314,40 @@ app.post("/reservations", async (req, res) => {
 
     const item = itemResult.rows[0]
 
-    // Criar empréstimo
+
+    // ==========================================
+    // VERIFICAR CONFLITO DE DATAS
+    // ==========================================
+
+    const conflictResult = await pool.query(
+      `SELECT
+        id_emprestimo,
+        data_inicio,
+        data_devolucao
+       FROM emprestimo
+       WHERE id_item = $1
+       AND status = 'pendente'
+       AND data_inicio <= $3
+       AND data_devolucao >= $2`,
+      [
+        itemId,
+        startDate,
+        returnDate
+      ]
+    )
+
+    if (conflictResult.rows.length > 0) {
+      return res.status(400).json({
+        error:
+          "Este item já está reservado para parte ou todo o período informado."
+      })
+    }
+
+
+    // ==========================================
+    // CRIAR EMPRÉSTIMO
+    // ==========================================
+
     const loanResult = await pool.query(
       `INSERT INTO emprestimo
        (
@@ -279,7 +368,11 @@ app.post("/reservations", async (req, res) => {
       ]
     )
 
-    // Criar notificação para o proprietário
+
+    // ==========================================
+    // CRIAR NOTIFICAÇÃO
+    // ==========================================
+
     await pool.query(
       `INSERT INTO notificacao
        (
@@ -292,6 +385,7 @@ app.post("/reservations", async (req, res) => {
         `Nova solicitação de empréstimo para o item "${item.nome}".`
       ]
     )
+
 
     res.status(201).json({
       message: "Solicitação de empréstimo enviada!",
