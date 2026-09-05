@@ -890,10 +890,22 @@ function formatDate(dateString) {
         return "";
     }
 
-    const date =
-        new Date(dateString + "T00:00:00");
+    const dateOnly =
+        String(dateString).split("T")[0];
 
-    return date.toLocaleDateString("pt-BR");
+    const parts = dateOnly.split("-");
+
+    if (parts.length !== 3) {
+        return "";
+    }
+
+    const [year, month, day] = parts;
+
+    if (!year || !month || !day) {
+        return "";
+    }
+
+    return `${day}/${month}/${year}`;
 }
 
 
@@ -1410,14 +1422,23 @@ function getItemReservations(itemId) {
 
 function getActiveReservation(itemId) {
 
-    const today =
-        getToday();
+    const today = getToday();
 
     return getItemReservations(itemId)
-        .find(reservation =>
-            reservation.data_inicio <= today &&
-            reservation.data_devolucao >= today
-        );
+        .find(reservation => {
+
+            if (!reservation.data_inicio || !reservation.data_devolucao) {
+                return false;
+            }
+
+            const startDate =
+                String(reservation.data_inicio).split("T")[0];
+
+            const returnDate =
+                String(reservation.data_devolucao).split("T")[0];
+
+            return startDate <= today && returnDate >= today;
+        });
 
 }
 
@@ -1464,13 +1485,6 @@ function displayItems(items) {
                     ${escapeHtml(
                         activeReservation.solicitante
                     )}
-                    <br>
-                    <span style="font-weight:400;">
-                        Devolução:
-                        ${formatDate(
-                            activeReservation.data_devolucao
-                        )}
-                    </span>
                 </p>
             `;
 
@@ -1699,45 +1713,33 @@ function showBlockedDates() {
         return;
     }
 
-
     const reservations =
-        getItemReservations(
-            selectedItemId
-        );
-
+        getItemReservations(selectedItemId);
 
     const blockedInfo =
-        document.getElementById(
-            "blockedInfo"
+        document.getElementById("blockedInfo");
+
+    const validReservations =
+        reservations.filter(reservation =>
+            reservation.data_inicio &&
+            reservation.data_devolucao
         );
 
-
-    if (reservations.length === 0) {
-
-        blockedInfo.style.display =
-            "none";
-
+    if (validReservations.length === 0) {
+        blockedInfo.innerHTML = "";
+        blockedInfo.style.display = "none";
         return;
     }
 
-
     const periods =
-        reservations.map(
-            reservation =>
-                `${formatDate(
-                    reservation.data_inicio
-                )} até ${formatDate(
-                    reservation.data_devolucao
-                )}`
+        validReservations.map(reservation =>
+            `${formatDate(reservation.data_inicio)} até ${formatDate(reservation.data_devolucao)}`
         );
-
 
     blockedInfo.innerHTML =
         `<strong>Datas já reservadas:</strong><br>${periods.join("<br>")}`;
 
-
-    blockedInfo.style.display =
-        "block";
+    blockedInfo.style.display = "block";
 
 }
 
@@ -1747,17 +1749,27 @@ function isDateBlocked(
     date
 ) {
 
+    if (!itemId || !date) {
+        return false;
+    }
+
     const reservations =
-        getItemReservations(
-            itemId
-        );
+        getItemReservations(itemId);
 
+    return reservations.some(reservation => {
 
-    return reservations.some(
-        reservation =>
-            reservation.data_inicio <= date &&
-            reservation.data_devolucao >= date
-    );
+        if (!reservation.data_inicio || !reservation.data_devolucao) {
+            return false;
+        }
+
+        const startDate =
+            String(reservation.data_inicio).split("T")[0];
+
+        const returnDate =
+            String(reservation.data_devolucao).split("T")[0];
+
+        return date >= startDate && date <= returnDate;
+    });
 
 }
 
@@ -1868,7 +1880,6 @@ function preventBlockedDateSelection(
                 return;
             }
 
-
             if (
                 this.value &&
                 isDateBlocked(
@@ -1883,24 +1894,25 @@ function preventBlockedDateSelection(
                     "error"
                 );
 
-
                 this.value = "";
 
-
-                if (
-                    this.id === "startDate"
-                ) {
-
+                if (this.id === "startDate") {
                     document
-                        .getElementById(
-                            "returnDate"
-                        )
+                        .getElementById("returnDate")
                         .value = "";
 
+                    updateLoanDuration();
                 }
 
+                return;
             }
 
+            // Data válida: limpa mensagens anteriores.
+            const message =
+                document.getElementById("reservationMessage");
+
+            message.textContent = "";
+            message.className = "message";
         }
     );
 
