@@ -31,8 +31,6 @@
             cursor: pointer;
         }
 
-        /* HEADER */
-
         header {
             background: #202020;
             color: white;
@@ -42,7 +40,6 @@
         .header-content {
             max-width: 1150px;
             margin: 0 auto;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -58,22 +55,17 @@
             color: #d5d5d5;
         }
 
-        /* MAIN */
-
         main {
             max-width: 1150px;
             margin: 0 auto;
             padding: 40px 20px 70px;
         }
 
-        /* HERO */
-
         .hero {
             background: white;
             border-radius: 20px;
             padding: 50px;
             margin-bottom: 30px;
-
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
         }
 
@@ -90,7 +82,6 @@
 
         .hero-highlight {
             margin-top: 25px;
-
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
@@ -103,14 +94,11 @@
             font-size: 13px;
         }
 
-        /* SECTIONS */
-
         .section {
             background: white;
             border-radius: 18px;
             padding: 30px;
             margin-bottom: 30px;
-
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
@@ -127,8 +115,6 @@
             color: #777;
             font-size: 14px;
         }
-
-        /* FORM */
 
         .form-grid {
             display: grid;
@@ -155,7 +141,6 @@
         select {
             width: 100%;
             padding: 13px 14px;
-
             border: 1px solid #dcdcdc;
             border-radius: 9px;
             background: white;
@@ -167,23 +152,27 @@
             border-color: #555;
         }
 
+        input:disabled {
+            background: #eeeeee;
+            color: #888;
+            cursor: not-allowed;
+        }
+
         .button {
             margin-top: 18px;
-
             border: none;
             border-radius: 9px;
             padding: 13px 20px;
-
             background: #202020;
             color: white;
             font-weight: 700;
         }
 
-        .button:hover {
+        .button:hover,
+        .reserve-button:hover,
+        .confirm-button:hover {
             opacity: 0.85;
         }
-
-        /* MESSAGES */
 
         .message {
             display: none;
@@ -205,16 +194,12 @@
             color: #b71c1c;
         }
 
-        /* SEARCH */
-
         .filters {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 12px;
             margin-bottom: 25px;
         }
-
-        /* ITEMS */
 
         .items-grid {
             display: grid;
@@ -226,9 +211,7 @@
             border: 1px solid #e5e5e5;
             border-radius: 15px;
             padding: 20px;
-
             background: #fafafa;
-
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -240,18 +223,13 @@
         .item-icon {
             width: 52px;
             height: 52px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             background: #202020;
             color: white;
-
             border-radius: 13px;
-
             font-size: 25px;
-
             margin-bottom: 15px;
         }
 
@@ -269,70 +247,63 @@
 
         .category {
             display: inline-block;
-
             padding: 5px 10px;
-
             background: #e9e9e9;
-
             border-radius: 20px;
-
             font-size: 12px;
             font-weight: 600;
-
             margin-bottom: 12px;
         }
 
         .owner {
             font-size: 13px;
             color: #555;
+            margin-bottom: 8px;
+        }
 
+        .availability {
+            font-size: 13px;
             margin-bottom: 15px;
+        }
+
+        .available {
+            color: #256029;
+            font-weight: 700;
+        }
+
+        .reserved {
+            color: #b71c1c;
+            font-weight: 700;
         }
 
         .reserve-button {
             width: 100%;
-
             padding: 11px;
-
             border: none;
             border-radius: 8px;
-
             background: #202020;
             color: white;
-
             font-weight: 700;
         }
 
-        /* EMPTY */
-
         .empty {
             grid-column: 1 / -1;
-
             padding: 30px;
             text-align: center;
-
             color: #777;
         }
 
-        /* MODAL */
-
         .modal {
             display: none;
-
             position: fixed;
             z-index: 1000;
-
             left: 0;
             top: 0;
-
             width: 100%;
             height: 100%;
-
             background: rgba(0, 0, 0, 0.55);
-
             align-items: center;
             justify-content: center;
-
             padding: 20px;
         }
 
@@ -343,11 +314,10 @@
         .modal-content {
             width: 100%;
             max-width: 500px;
-
+            max-height: 90vh;
+            overflow-y: auto;
             background: white;
-
             border-radius: 18px;
-
             padding: 30px;
         }
 
@@ -355,7 +325,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-bottom: 20px;
         }
 
@@ -366,10 +335,8 @@
         .close {
             border: none;
             background: transparent;
-
             font-size: 25px;
             cursor: pointer;
-
             color: #555;
         }
 
@@ -379,56 +346,58 @@
             margin-top: 20px;
         }
 
-        .cancel-button {
+        .cancel-button,
+        .confirm-button {
             flex: 1;
-
             padding: 12px;
-
-            border: 1px solid #ddd;
             border-radius: 8px;
+        }
 
+        .cancel-button {
+            border: 1px solid #ddd;
             background: white;
         }
 
         .confirm-button {
-            flex: 1;
-
-            padding: 12px;
-
             border: none;
-            border-radius: 8px;
-
             background: #202020;
             color: white;
-
             font-weight: 700;
         }
 
-        /* FOOTER */
+        .loan-duration {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #f1f1f1;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .blocked-info {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #fff3f3;
+            color: #8b1a1a;
+            font-size: 13px;
+        }
 
         footer {
             background: #202020;
             color: #aaa;
-
             text-align: center;
-
             padding: 25px;
-
             font-size: 13px;
         }
 
-        /* RESPONSIVE */
-
         @media (max-width: 850px) {
-
             .items-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
         }
 
         @media (max-width: 650px) {
-
             header {
                 padding: 18px 20px;
             }
@@ -464,286 +433,198 @@
             .form-group.full {
                 grid-column: auto;
             }
-
         }
     </style>
 </head>
 
-
 <body>
 
-    <!-- HEADER -->
+<header>
+    <div class="header-content">
+        <div class="logo">CondoShare</div>
 
-    <header>
+        <div class="header-text">
+            Compartilhe com quem mora perto.
+        </div>
+    </div>
+</header>
 
-        <div class="header-content">
 
-            <div class="logo">
-                CondoShare
+<main>
+
+    <section class="hero">
+
+        <h1>
+            Compartilhe. Empreste. Conecte.
+        </h1>
+
+        <p>
+            O CondoShare facilita o compartilhamento de itens
+            entre moradores do mesmo condomínio.
+            Encontre o que precisa ou disponibilize aquilo
+            que você não usa todos os dias.
+        </p>
+
+        <div class="hero-highlight">
+
+            <span class="highlight">
+                🏠 Comunidade
+            </span>
+
+            <span class="highlight">
+                📦 Itens compartilhados
+            </span>
+
+            <span class="highlight">
+                🤝 Empréstimos
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- CADASTRO DE USUÁRIO -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                👤 Criar conta
+            </h2>
+
+            <p>
+                Cadastre um morador para participar da comunidade.
+            </p>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="userName">
+                    Nome
+                </label>
+
+                <input
+                    id="userName"
+                    type="text"
+                    placeholder="Ex.: Ana Souza"
+                >
+
             </div>
 
-            <div class="header-text">
-                Compartilhe com quem mora perto.
+
+            <div class="form-group">
+
+                <label for="userEmail">
+                    E-mail
+                </label>
+
+                <input
+                    id="userEmail"
+                    type="email"
+                    placeholder="Ex.: ana@email.com"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="userPassword">
+                    Senha
+                </label>
+
+                <input
+                    id="userPassword"
+                    type="password"
+                    placeholder="Digite uma senha"
+                >
+
             </div>
 
         </div>
 
-    </header>
+
+        <button
+            class="button"
+            onclick="createUser()"
+        >
+            Cadastrar morador
+        </button>
 
 
-    <main>
+        <div
+            id="userMessage"
+            class="message"
+        ></div>
 
-        <!-- HERO -->
+    </section>
 
-        <section class="hero">
 
-            <h1>
-                Compartilhe. Empreste. Conecte.
-            </h1>
+    <!-- CADASTRO DE ITEM -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                📦 Compartilhar um item
+            </h2>
 
             <p>
-                O CondoShare facilita o compartilhamento de itens
-                entre moradores do mesmo condomínio.
-                Encontre o que precisa ou disponibilize aquilo
-                que você não usa todos os dias.
+                Disponibilize um objeto para outros moradores.
             </p>
 
-            <div class="hero-highlight">
+        </div>
 
-                <span class="highlight">
-                    🏠 Comunidade
-                </span>
 
-                <span class="highlight">
-                    📦 Itens compartilhados
-                </span>
+        <div class="form-grid">
 
-                <span class="highlight">
-                    🤝 Empréstimos
-                </span>
+            <div class="form-group">
 
-            </div>
-
-        </section>
-
-
-        <!-- CADASTRO DE USUÁRIO -->
-
-        <section class="section">
-
-            <div class="section-header">
-
-                <h2>
-                    👤 Criar conta
-                </h2>
-
-                <p>
-                    Cadastre um morador para participar da comunidade.
-                </p>
-
-            </div>
-
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label for="userName">
-                        Nome
-                    </label>
-
-                    <input
-                        id="userName"
-                        type="text"
-                        placeholder="Ex.: Ana Souza"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="userEmail">
-                        E-mail
-                    </label>
-
-                    <input
-                        id="userEmail"
-                        type="email"
-                        placeholder="Ex.: ana@email.com"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="userPassword">
-                        Senha
-                    </label>
-
-                    <input
-                        id="userPassword"
-                        type="password"
-                        placeholder="Digite uma senha"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="button"
-                onclick="createUser()"
-            >
-                Cadastrar morador
-            </button>
-
-
-            <div
-                id="userMessage"
-                class="message"
-            ></div>
-
-        </section>
-
-
-        <!-- CADASTRO DE ITEM -->
-
-        <section class="section">
-
-            <div class="section-header">
-
-                <h2>
-                    📦 Compartilhar um item
-                </h2>
-
-                <p>
-                    Disponibilize um objeto para outros moradores.
-                </p>
-
-            </div>
-
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label for="itemName">
-                        Nome do item
-                    </label>
-
-                    <input
-                        id="itemName"
-                        type="text"
-                        placeholder="Ex.: Furadeira"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="itemDescription">
-                        Descrição
-                    </label>
-
-                    <input
-                        id="itemDescription"
-                        type="text"
-                        placeholder="Ex.: Furadeira elétrica"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="categoryId">
-                        Categoria
-                    </label>
-
-                    <select id="categoryId">
-
-                        <option value="">
-                            Selecione uma categoria
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="itemUserId">
-                        Proprietário
-                    </label>
-
-                    <select id="itemUserId">
-
-                        <option value="">
-                            Selecione o proprietário
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="button"
-                onclick="createItem()"
-            >
-                Disponibilizar item
-            </button>
-
-
-            <div
-                id="itemMessage"
-                class="message"
-            ></div>
-
-        </section>
-
-
-        <!-- ITENS -->
-
-        <section class="section">
-
-            <div class="section-header">
-
-                <h2>
-                    🔎 Itens disponíveis
-                </h2>
-
-                <p>
-                    Encontre algo que você precisa no seu condomínio.
-                </p>
-
-            </div>
-
-
-            <div class="filters">
+                <label for="itemName">
+                    Nome do item
+                </label>
 
                 <input
-                    id="search"
+                    id="itemName"
                     type="text"
-                    placeholder="🔎 Buscar por nome ou descrição..."
-                    oninput="filterItems()"
+                    placeholder="Ex.: Bola de vôlei"
                 >
 
+            </div>
 
-                <select
-                    id="categoryFilter"
-                    onchange="filterItems()"
+
+            <div class="form-group">
+
+                <label for="itemDescription">
+                    Descrição
+                </label>
+
+                <input
+                    id="itemDescription"
+                    type="text"
+                    placeholder="Ex.: Bola oficial para recreação"
                 >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="categoryId">
+                    Categoria
+                </label>
+
+                <select id="categoryId">
 
                     <option value="">
-                        Todas as categorias
+                        Selecione uma categoria
                     </option>
 
                 </select>
@@ -751,850 +632,1516 @@
             </div>
 
 
-            <div
-                id="items"
-                class="items-grid"
-            ></div>
+            <div class="form-group">
 
-        </section>
+                <label for="itemUserId">
+                    Proprietário
+                </label>
 
-    </main>
+                <select id="itemUserId">
 
+                    <option value="">
+                        Selecione o proprietário
+                    </option>
 
-    <!-- MODAL DE RESERVA -->
-
-    <div
-        id="reservationModal"
-        class="modal"
-    >
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h2>
-                    Solicitar empréstimo
-                </h2>
-
-                <button
-                    class="close"
-                    onclick="closeModal()"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <p
-                id="selectedItem"
-                style="margin-bottom: 20px; color: #666;"
-            ></p>
-
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label for="reservationUser">
-                        Quem está solicitando?
-                    </label>
-
-                    <select id="reservationUser">
-
-                        <option value="">
-                            Selecione o morador
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="startDate">
-                        Data de início
-                    </label>
-
-                    <input
-                        id="startDate"
-                        type="date"
-                    >
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label for="returnDate">
-                        Data de devolução
-                    </label>
-
-                    <input
-                        id="returnDate"
-                        type="date"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="reservationMessage"
-                class="message"
-            ></div>
-
-
-            <div class="modal-actions">
-
-                <button
-                    class="cancel-button"
-                    onclick="closeModal()"
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    class="confirm-button"
-                    onclick="submitReservation()"
-                >
-                    Solicitar empréstimo
-                </button>
+                </select>
 
             </div>
 
         </div>
 
+
+        <button
+            class="button"
+            onclick="createItem()"
+        >
+            Disponibilizar item
+        </button>
+
+
+        <div
+            id="itemMessage"
+            class="message"
+        ></div>
+
+    </section>
+
+
+    <!-- ITENS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                🔎 Itens disponíveis
+            </h2>
+
+            <p>
+                Encontre algo que você precisa no seu condomínio.
+            </p>
+
+        </div>
+
+
+        <div class="filters">
+
+            <input
+                id="search"
+                type="text"
+                placeholder="🔎 Buscar por nome ou descrição..."
+                oninput="filterItems()"
+            >
+
+
+            <select
+                id="categoryFilter"
+                onchange="filterItems()"
+            >
+
+                <option value="">
+                    Todas as categorias
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="items"
+            class="items-grid"
+        ></div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div
+    id="reservationModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Solicitar empréstimo
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <p
+            id="selectedItem"
+            style="margin-bottom: 20px; color: #666;"
+        ></p>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="reservationUser">
+                    Quem está solicitando?
+                </label>
+
+                <select id="reservationUser">
+
+                    <option value="">
+                        Selecione o morador
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="startDate">
+                    Data de início
+                </label>
+
+                <input
+                    id="startDate"
+                    type="date"
+                    onchange="updateReturnDate()"
+                >
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label for="returnDate">
+                    Data de devolução
+                </label>
+
+                <input
+                    id="returnDate"
+                    type="date"
+                    onchange="updateLoanDuration()"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="loanDuration"
+            class="loan-duration"
+            style="display:none;"
+        ></div>
+
+
+        <div
+            id="blockedInfo"
+            class="blocked-info"
+            style="display:none;"
+        ></div>
+
+
+        <div
+            id="reservationMessage"
+            class="message"
+        ></div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="cancel-button"
+                onclick="closeModal()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                id="confirmReservationButton"
+                class="confirm-button"
+                onclick="submitReservation()"
+            >
+                Solicitar empréstimo
+            </button>
+
+        </div>
+
     </div>
 
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        CondoShare — Sistema de compartilhamento de itens em condomínio
-
-    </footer>
+</div>
 
 
-    <script>
-
-        const API_URL =
-            "https://condoshare-backend.onrender.com";
-
-
-        let allItems = [];
-
-        let allUsers = [];
-
-        let allCategories = [];
-
-        let selectedItemId = null;
+<footer>
+    CondoShare — Sistema de compartilhamento de itens em condomínio
+</footer>
 
 
-        // ==========================================
-        // MENSAGENS
-        // ==========================================
+<script>
 
-        function showMessage(elementId, message, type) {
+const API_URL =
+    "https://condoshare-backend.onrender.com";
 
-            const element =
-                document.getElementById(elementId);
 
-            element.textContent = message;
+let allItems = [];
+let allUsers = [];
+let allCategories = [];
+let allReservations = [];
 
-            element.className =
-                `message ${type}`;
+let selectedItemId = null;
 
+
+// ==========================================
+// UTILIDADES
+// ==========================================
+
+function getToday() {
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1).padStart(2, "0");
+
+    const day =
+        String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date =
+        new Date(dateString + "T00:00:00");
+
+    return date.toLocaleDateString("pt-BR");
+}
+
+
+function calculateDays(startDate, returnDate) {
+
+    const start =
+        new Date(startDate + "T00:00:00");
+
+    const end =
+        new Date(returnDate + "T00:00:00");
+
+    const difference =
+        end - start;
+
+    return Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
+}
+
+
+function escapeHtml(text) {
+
+    return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+// ==========================================
+// MENSAGENS
+// ==========================================
+
+function showMessage(
+    elementId,
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    element.textContent = message;
+
+    element.className =
+        `message ${type}`;
+}
+
+
+// ==========================================
+// USUÁRIOS
+// ==========================================
+
+async function loadUsers() {
+
+    try {
+
+        const response =
+            await fetch(`${API_URL}/users`);
+
+        if (!response.ok) {
+            throw new Error(
+                "Erro ao carregar usuários"
+            );
         }
 
+        allUsers =
+            await response.json();
 
-        // ==========================================
-        // USUÁRIOS
-        // ==========================================
+        updateUserSelects();
 
-        async function loadUsers() {
+    } catch (error) {
 
-            try {
+        console.error(error);
 
-                const response =
-                    await fetch(`${API_URL}/users`);
+    }
 
-                if (!response.ok) {
-                    throw new Error("Erro ao carregar usuários");
+}
+
+
+function updateUserSelects() {
+
+    const itemUserSelect =
+        document.getElementById("itemUserId");
+
+    const reservationUserSelect =
+        document.getElementById("reservationUser");
+
+
+    itemUserSelect.innerHTML = `
+        <option value="">
+            Selecione o proprietário
+        </option>
+    `;
+
+
+    reservationUserSelect.innerHTML = `
+        <option value="">
+            Selecione o morador
+        </option>
+    `;
+
+
+    allUsers.forEach(user => {
+
+        itemUserSelect.innerHTML += `
+            <option value="${user.id_usuario}">
+                ${escapeHtml(user.nome)}
+            </option>
+        `;
+
+
+        reservationUserSelect.innerHTML += `
+            <option value="${user.id_usuario}">
+                ${escapeHtml(user.nome)}
+            </option>
+        `;
+
+    });
+
+}
+
+
+async function createUser() {
+
+    const name =
+        document
+            .getElementById("userName")
+            .value
+            .trim();
+
+    const email =
+        document
+            .getElementById("userEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("userPassword")
+            .value;
+
+
+    if (!name || !email || !password) {
+
+        showMessage(
+            "userMessage",
+            "Preencha nome, e-mail e senha.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/users`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password
+                    })
                 }
-
-                allUsers =
-                    await response.json();
+            );
 
 
-                updateUserSelects();
+        const data =
+            await response.json();
 
-            } catch (error) {
 
-                console.error(error);
+        if (!response.ok) {
 
-            }
+            showMessage(
+                "userMessage",
+                data.error ||
+                "Erro ao cadastrar morador.",
+                "error"
+            );
 
+            return;
         }
 
 
-        function updateUserSelects() {
-
-            const itemUserSelect =
-                document.getElementById("itemUserId");
-
-            const reservationUserSelect =
-                document.getElementById("reservationUser");
+        showMessage(
+            "userMessage",
+            "Morador cadastrado com sucesso!",
+            "success"
+        );
 
 
-            itemUserSelect.innerHTML = `
-                <option value="">
-                    Selecione o proprietário
+        document
+            .getElementById("userName")
+            .value = "";
+
+        document
+            .getElementById("userEmail")
+            .value = "";
+
+        document
+            .getElementById("userPassword")
+            .value = "";
+
+
+        await loadUsers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "userMessage",
+            "Erro ao conectar com o backend.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// CATEGORIAS
+// ==========================================
+
+async function loadCategories() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/categories`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Erro ao carregar categorias"
+            );
+        }
+
+        allCategories =
+            await response.json();
+
+
+        const categorySelect =
+            document.getElementById("categoryId");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+
+        categorySelect.innerHTML = `
+            <option value="">
+                Selecione uma categoria
+            </option>
+        `;
+
+
+        categoryFilter.innerHTML = `
+            <option value="">
+                Todas as categorias
+            </option>
+        `;
+
+
+        allCategories.forEach(category => {
+
+            categorySelect.innerHTML += `
+                <option value="${category.id_categoria}">
+                    ${escapeHtml(category.nome)}
                 </option>
             `;
 
 
-            reservationUserSelect.innerHTML = `
-                <option value="">
-                    Selecione o morador
+            categoryFilter.innerHTML += `
+                <option value="${category.id_categoria}">
+                    ${escapeHtml(category.nome)}
                 </option>
             `;
 
+        });
 
-            allUsers.forEach(user => {
+    } catch (error) {
 
-                itemUserSelect.innerHTML += `
-                    <option value="${user.id_usuario}">
-                        ${user.nome}
-                    </option>
-                `;
+        console.error(error);
+
+    }
+
+}
 
 
-                reservationUserSelect.innerHTML += `
-                    <option value="${user.id_usuario}">
-                        ${user.nome}
-                    </option>
-                `;
+// ==========================================
+// ITENS
+// ==========================================
 
-            });
+async function loadItems() {
 
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/items`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Erro ao carregar itens"
+            );
         }
 
-
-        async function createUser() {
-
-            const name =
-                document.getElementById("userName").value.trim();
-
-            const email =
-                document.getElementById("userEmail").value.trim();
-
-            const password =
-                document.getElementById("userPassword").value;
+        allItems =
+            await response.json();
 
 
-            if (!name || !email || !password) {
+        displayItems(allItems);
 
-                showMessage(
-                    "userMessage",
-                    "Preencha nome, e-mail e senha.",
-                    "error"
-                );
+    } catch (error) {
 
-                return;
-            }
+        console.error(error);
 
+        document
+            .getElementById("items")
+            .innerHTML = `
+                <p class="empty">
+                    Não foi possível carregar os itens.
+                </p>
+            `;
 
-            try {
+    }
 
-                const response =
-                    await fetch(`${API_URL}/users`, {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            name: name,
-                            email: email,
-                            password: password
-
-                        })
-
-                    });
+}
 
 
-                const data =
-                    await response.json();
+async function createItem() {
+
+    const name =
+        document
+            .getElementById("itemName")
+            .value
+            .trim();
+
+    const description =
+        document
+            .getElementById("itemDescription")
+            .value
+            .trim();
+
+    const categoryId =
+        document
+            .getElementById("categoryId")
+            .value;
+
+    const userId =
+        document
+            .getElementById("itemUserId")
+            .value;
 
 
-                if (!response.ok) {
+    if (!name || !categoryId || !userId) {
 
-                    showMessage(
-                        "userMessage",
-                        data.error || "Erro ao cadastrar morador.",
-                        "error"
-                    );
+        showMessage(
+            "itemMessage",
+            "Preencha nome, categoria e proprietário.",
+            "error"
+        );
 
-                    return;
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/items`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        name,
+
+                        description,
+
+                        categoryId:
+                            Number(categoryId),
+
+                        userId:
+                            Number(userId)
+
+                    })
                 }
+            );
 
 
-                showMessage(
-                    "userMessage",
-                    `Morador cadastrado com sucesso! ID: ${data.id_usuario}`,
-                    "success"
-                );
+        const data =
+            await response.json();
 
 
-                document.getElementById("userName").value = "";
+        if (!response.ok) {
 
-                document.getElementById("userEmail").value = "";
+            showMessage(
+                "itemMessage",
+                data.error ||
+                "Erro ao cadastrar item.",
+                "error"
+            );
 
-                document.getElementById("userPassword").value = "";
+            return;
+        }
 
 
-                await loadUsers();
+        showMessage(
+            "itemMessage",
+            "Item disponibilizado com sucesso!",
+            "success"
+        );
 
-            } catch (error) {
 
-                console.error(error);
+        document
+            .getElementById("itemName")
+            .value = "";
 
-                showMessage(
-                    "userMessage",
-                    "Erro ao conectar com o backend.",
-                    "error"
-                );
+        document
+            .getElementById("itemDescription")
+            .value = "";
 
-            }
+        document
+            .getElementById("categoryId")
+            .value = "";
+
+        document
+            .getElementById("itemUserId")
+            .value = "";
+
+
+        await loadItems();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "itemMessage",
+            "Erro ao conectar com o backend.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// RESERVAS
+// ==========================================
+
+async function loadReservations() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/reservations`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Erro ao carregar reservas"
+            );
+        }
+
+        allReservations =
+            await response.json();
+
+    } catch (error) {
+
+        console.error(error);
+
+        allReservations = [];
+
+    }
+
+}
+
+
+function getItemReservations(itemId) {
+
+    return allReservations.filter(
+        reservation =>
+            Number(reservation.id_item) ===
+            Number(itemId)
+    );
+
+}
+
+
+function getActiveReservation(itemId) {
+
+    const today =
+        getToday();
+
+    return getItemReservations(itemId)
+        .find(reservation =>
+            reservation.data_inicio <= today &&
+            reservation.data_devolucao >= today
+        );
+
+}
+
+
+function displayItems(items) {
+
+    const container =
+        document.getElementById("items");
+
+
+    container.innerHTML = "";
+
+
+    if (items.length === 0) {
+
+        container.innerHTML = `
+            <p class="empty">
+                Nenhum item encontrado.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    items.forEach(item => {
+
+        const activeReservation =
+            getActiveReservation(item.id_item);
+
+
+        let availabilityHtml = `
+            <p class="availability available">
+                🟢 Disponível
+            </p>
+        `;
+
+
+        if (activeReservation) {
+
+            availabilityHtml = `
+                <p class="availability reserved">
+                    🔴 Reservado por:
+                    ${escapeHtml(
+                        activeReservation.solicitante
+                    )}
+                    <br>
+                    <span style="font-weight:400;">
+                        Devolução:
+                        ${formatDate(
+                            activeReservation.data_devolucao
+                        )}
+                    </span>
+                </p>
+            `;
 
         }
 
 
-        // ==========================================
-        // CATEGORIAS
-        // ==========================================
+        container.innerHTML += `
 
-        async function loadCategories() {
+            <article class="item-card">
 
-            try {
+                <div class="item-icon">
+                    📦
+                </div>
 
-                const response =
-                    await fetch(`${API_URL}/categories`);
 
-                if (!response.ok) {
-                    throw new Error("Erro ao carregar categorias");
-                }
+                <h3>
+                    ${escapeHtml(item.nome)}
+                </h3>
 
-                allCategories =
-                    await response.json();
 
+                <span class="category">
+                    ${escapeHtml(item.categoria)}
+                </span>
 
-                const categorySelect =
-                    document.getElementById("categoryId");
 
-                const categoryFilter =
-                    document.getElementById("categoryFilter");
+                <p class="item-description">
+                    ${escapeHtml(
+                        item.descricao ||
+                        "Sem descrição."
+                    )}
+                </p>
 
 
-                categorySelect.innerHTML = `
-                    <option value="">
-                        Selecione uma categoria
-                    </option>
-                `;
+                <p class="owner">
+                    <strong>
+                        Disponibilizado por:
+                    </strong>
+                    ${escapeHtml(item.proprietario)}
+                </p>
 
 
-                categoryFilter.innerHTML = `
-                    <option value="">
-                        Todas as categorias
-                    </option>
-                `;
+                ${availabilityHtml}
 
 
-                allCategories.forEach(category => {
+                <button
+                    class="reserve-button"
+                    onclick="openReservation(
+                        ${item.id_item},
+                        '${escapeHtml(item.nome)}'
+                    )"
+                >
+                    Solicitar empréstimo
+                </button>
 
-                    categorySelect.innerHTML += `
-                        <option value="${category.id_categoria}">
-                            ${category.nome}
-                        </option>
-                    `;
+            </article>
 
+        `;
 
-                    categoryFilter.innerHTML += `
-                        <option value="${category.id_categoria}">
-                            ${category.nome}
-                        </option>
-                    `;
+    });
 
-                });
+}
 
-            } catch (error) {
 
-                console.error(error);
+function filterItems() {
 
-            }
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
 
-        }
 
+    const category =
+        document
+            .getElementById("categoryFilter")
+            .value;
 
-        // ==========================================
-        // ITENS
-        // ==========================================
 
-        async function loadItems() {
+    const filtered =
+        allItems.filter(item => {
 
-            try {
-
-                const response =
-                    await fetch(`${API_URL}/items`);
-
-
-                if (!response.ok) {
-                    throw new Error("Erro ao carregar itens");
-                }
-
-
-                allItems =
-                    await response.json();
-
-
-                displayItems(allItems);
-
-            } catch (error) {
-
-                console.error(error);
-
-
-                document.getElementById("items").innerHTML = `
-                    <p class="empty">
-                        Não foi possível carregar os itens.
-                    </p>
-                `;
-
-            }
-
-        }
-
-
-        async function createItem() {
-
-            const name =
-                document.getElementById("itemName").value.trim();
-
-            const description =
-                document.getElementById("itemDescription").value.trim();
-
-            const categoryId =
-                document.getElementById("categoryId").value;
-
-            const userId =
-                document.getElementById("itemUserId").value;
-
-
-            if (!name || !categoryId || !userId) {
-
-                showMessage(
-                    "itemMessage",
-                    "Preencha nome, categoria e proprietário.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            try {
-
-                const response =
-                    await fetch(`${API_URL}/items`, {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            name: name,
-
-                            description: description,
-
-                            categoryId: Number(categoryId),
-
-                            userId: Number(userId)
-
-                        })
-
-                    });
-
-
-                const data =
-                    await response.json();
-
-
-                if (!response.ok) {
-
-                    showMessage(
-                        "itemMessage",
-                        data.error || "Erro ao cadastrar item.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-
-                showMessage(
-                    "itemMessage",
-                    "Item disponibilizado com sucesso!",
-                    "success"
-                );
-
-
-                document.getElementById("itemName").value = "";
-
-                document.getElementById("itemDescription").value = "";
-
-                document.getElementById("categoryId").value = "";
-
-                document.getElementById("itemUserId").value = "";
-
-
-                await loadItems();
-
-            } catch (error) {
-
-                console.error(error);
-
-                showMessage(
-                    "itemMessage",
-                    "Erro ao conectar com o backend.",
-                    "error"
-                );
-
-            }
-
-        }
-
-
-        function displayItems(items) {
-
-            const container =
-                document.getElementById("items");
-
-
-            container.innerHTML = "";
-
-
-            if (items.length === 0) {
-
-                container.innerHTML = `
-                    <p class="empty">
-                        Nenhum item encontrado.
-                    </p>
-                `;
-
-                return;
-            }
-
-
-            items.forEach(item => {
-
-                container.innerHTML += `
-
-                    <article class="item-card">
-
-                        <div class="item-icon">
-                            📦
-                        </div>
-
-                        <h3>
-                            ${item.nome}
-                        </h3>
-
-                        <span class="category">
-                            ${item.categoria}
-                        </span>
-
-                        <p class="item-description">
-                            ${item.descricao || "Sem descrição."}
-                        </p>
-
-                        <p class="owner">
-                            <strong>Disponibilizado por:</strong>
-                            ${item.proprietario}
-                        </p>
-
-                        <button
-                            class="reserve-button"
-                            onclick="openReservation(${item.id_item}, '${escapeHtml(item.nome)}')"
-                        >
-                            Solicitar empréstimo
-                        </button>
-
-                    </article>
-
-                `;
-
-            });
-
-        }
-
-
-        function escapeHtml(text) {
-
-            return text
-                .replace(/\\/g, "\\\\")
-                .replace(/'/g, "\\'")
-                .replace(/"/g, "&quot;");
-
-        }
-
-
-        function filterItems() {
-
-            const search =
-                document
-                    .getElementById("search")
-                    .value
+            const matchesSearch =
+                item.nome
                     .toLowerCase()
-                    .trim();
+                    .includes(search)
+
+                ||
+
+                (item.descricao || "")
+                    .toLowerCase()
+                    .includes(search);
 
 
-            const category =
-                document
-                    .getElementById("categoryFilter")
-                    .value;
+            const matchesCategory =
+                !category
+
+                ||
+
+                String(item.id_categoria) ===
+                String(category);
 
 
-            const filtered =
-                allItems.filter(item => {
+            return (
+                matchesSearch &&
+                matchesCategory
+            );
 
-                    const matchesSearch =
-
-                        item.nome
-                            .toLowerCase()
-                            .includes(search)
-
-                        ||
-
-                        (item.descricao || "")
-                            .toLowerCase()
-                            .includes(search);
+        });
 
 
-                    const matchesCategory =
+    displayItems(filtered);
 
-                        !category
-
-                        ||
-
-                        String(item.id_categoria) ===
-                        String(category);
+}
 
 
-                    return matchesSearch &&
-                        matchesCategory;
+// ==========================================
+// MODAL DE RESERVA
+// ==========================================
 
-                });
+function openReservation(
+    itemId,
+    itemName
+) {
 
-
-            displayItems(filtered);
-
-        }
-
-
-        // ==========================================
-        // RESERVA
-        // ==========================================
-
-        function openReservation(itemId, itemName) {
-
-            selectedItemId =
-                itemId;
+    selectedItemId =
+        itemId;
 
 
-            document.getElementById("selectedItem").textContent =
-                `Você está solicitando o empréstimo de: ${itemName}`;
+    document
+        .getElementById("selectedItem")
+        .textContent =
+        `Você está solicitando o empréstimo de: ${itemName}`;
 
 
-            document.getElementById("reservationMessage").className =
-                "message";
+    document
+        .getElementById("reservationMessage")
+        .className =
+        "message";
 
 
-            document.getElementById("reservationMessage").textContent =
-                "";
+    document
+        .getElementById("reservationMessage")
+        .textContent =
+        "";
 
 
-            document.getElementById("reservationUser").value =
-                "";
+    document
+        .getElementById("reservationUser")
+        .value = "";
 
 
-            document.getElementById("startDate").value =
-                "";
+    const startInput =
+        document.getElementById(
+            "startDate"
+        );
+
+    const returnInput =
+        document.getElementById(
+            "returnDate"
+        );
 
 
-            document.getElementById("returnDate").value =
-                "";
+    const today =
+        getToday();
 
 
-            document
-                .getElementById("reservationModal")
-                .classList
-                .add("active");
+    startInput.min =
+        today;
 
-        }
-
-
-        function closeModal() {
-
-            document
-                .getElementById("reservationModal")
-                .classList
-                .remove("active");
-
-            selectedItemId = null;
-
-        }
+    returnInput.min =
+        today;
 
 
-        async function submitReservation() {
-
-            const userId =
-                document.getElementById("reservationUser").value;
-
-            const startDate =
-                document.getElementById("startDate").value;
-
-            const returnDate =
-                document.getElementById("returnDate").value;
+    startInput.value = "";
+    returnInput.value = "";
 
 
-            if (!userId || !startDate || !returnDate) {
+    document
+        .getElementById("loanDuration")
+        .style.display =
+        "none";
 
-                showMessage(
-                    "reservationMessage",
-                    "Preencha morador e as duas datas.",
-                    "error"
-                );
 
+    document
+        .getElementById("blockedInfo")
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "confirmReservationButton"
+        )
+        .disabled = false;
+
+
+    showBlockedDates();
+
+
+    document
+        .getElementById("reservationModal")
+        .classList
+        .add("active");
+
+}
+
+
+function closeModal() {
+
+    document
+        .getElementById("reservationModal")
+        .classList
+        .remove("active");
+
+
+    selectedItemId =
+        null;
+
+}
+
+
+function showBlockedDates() {
+
+    if (!selectedItemId) {
+        return;
+    }
+
+
+    const reservations =
+        getItemReservations(
+            selectedItemId
+        );
+
+
+    const blockedInfo =
+        document.getElementById(
+            "blockedInfo"
+        );
+
+
+    if (reservations.length === 0) {
+
+        blockedInfo.style.display =
+            "none";
+
+        return;
+    }
+
+
+    const periods =
+        reservations.map(
+            reservation =>
+                `${formatDate(
+                    reservation.data_inicio
+                )} até ${formatDate(
+                    reservation.data_devolucao
+                )}`
+        );
+
+
+    blockedInfo.innerHTML =
+        `<strong>Datas já reservadas:</strong><br>${periods.join("<br>")}`;
+
+
+    blockedInfo.style.display =
+        "block";
+
+}
+
+
+function isDateBlocked(
+    itemId,
+    date
+) {
+
+    const reservations =
+        getItemReservations(
+            itemId
+        );
+
+
+    return reservations.some(
+        reservation =>
+            reservation.data_inicio <= date &&
+            reservation.data_devolucao >= date
+    );
+
+}
+
+
+function updateReturnDate() {
+
+    const startDate =
+        document
+            .getElementById("startDate")
+            .value;
+
+
+    const returnInput =
+        document.getElementById(
+            "returnDate"
+        );
+
+
+    if (!startDate) {
+        return;
+    }
+
+
+    returnInput.min =
+        startDate;
+
+
+    if (
+        returnInput.value &&
+        returnInput.value < startDate
+    ) {
+
+        returnInput.value = "";
+
+    }
+
+
+    updateLoanDuration();
+
+}
+
+
+function updateLoanDuration() {
+
+    const startDate =
+        document
+            .getElementById("startDate")
+            .value;
+
+
+    const returnDate =
+        document
+            .getElementById("returnDate")
+            .value;
+
+
+    const durationElement =
+        document.getElementById(
+            "loanDuration"
+        );
+
+
+    if (!startDate || !returnDate) {
+
+        durationElement.style.display =
+            "none";
+
+        return;
+    }
+
+
+    if (returnDate < startDate) {
+
+        durationElement.style.display =
+            "none";
+
+        return;
+    }
+
+
+    const days =
+        calculateDays(
+            startDate,
+            returnDate
+        );
+
+
+    durationElement.textContent =
+        `📅 Período do empréstimo: ${days} ${days === 1 ? "dia" : "dias"}`;
+
+
+    durationElement.style.display =
+        "block";
+
+}
+
+
+// Bloqueia visualmente datas ocupadas
+function preventBlockedDateSelection(
+    inputElement
+) {
+
+    inputElement.addEventListener(
+        "change",
+        function () {
+
+            if (!selectedItemId) {
                 return;
             }
 
 
-            if (returnDate < startDate) {
+            if (
+                this.value &&
+                isDateBlocked(
+                    selectedItemId,
+                    this.value
+                )
+            ) {
 
                 showMessage(
                     "reservationMessage",
-                    "A data de devolução deve ser posterior à data de início.",
+                    "Essa data já está reservada para este item. Escolha outra data.",
                     "error"
                 );
 
-                return;
-            }
+
+                this.value = "";
 
 
-            try {
+                if (
+                    this.id === "startDate"
+                ) {
 
-                const response =
-                    await fetch(
-                        `${API_URL}/reservations`,
-                        {
+                    document
+                        .getElementById(
+                            "returnDate"
+                        )
+                        .value = "";
 
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-
-                            body: JSON.stringify({
-
-                                itemId: Number(selectedItemId),
-
-                                userId: Number(userId),
-
-                                startDate: startDate,
-
-                                returnDate: returnDate
-
-                            })
-
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                if (!response.ok) {
-
-                    showMessage(
-                        "reservationMessage",
-                        data.error ||
-                        "Erro ao solicitar empréstimo.",
-                        "error"
-                    );
-
-                    return;
                 }
 
-
-                showMessage(
-                    "reservationMessage",
-                    "Solicitação enviada com sucesso! O proprietário foi notificado.",
-                    "success"
-                );
-
-
-                setTimeout(() => {
-
-                    closeModal();
-
-                }, 1800);
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                showMessage(
-                    "reservationMessage",
-                    "Erro ao conectar com o backend.",
-                    "error"
-                );
-
             }
 
         }
+    );
+
+}
 
 
-        // ==========================================
-        // INICIALIZAÇÃO
-        // ==========================================
+async function submitReservation() {
 
-        async function initialize() {
+    const userId =
+        document
+            .getElementById(
+                "reservationUser"
+            )
+            .value;
 
-            await loadUsers();
 
-            await loadCategories();
+    const startDate =
+        document
+            .getElementById(
+                "startDate"
+            )
+            .value;
 
-            await loadItems();
 
+    const returnDate =
+        document
+            .getElementById(
+                "returnDate"
+            )
+            .value;
+
+
+    if (
+        !userId ||
+        !startDate ||
+        !returnDate
+    ) {
+
+        showMessage(
+            "reservationMessage",
+            "Preencha morador e as duas datas.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const today =
+        getToday();
+
+
+    if (startDate < today) {
+
+        showMessage(
+            "reservationMessage",
+            "A data de início não pode ser anterior a hoje.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (returnDate < startDate) {
+
+        showMessage(
+            "reservationMessage",
+            "A data de devolução não pode ser anterior à data de início.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // Verificar todos os dias escolhidos
+    let current =
+        new Date(
+            startDate + "T00:00:00"
+        );
+
+    const end =
+        new Date(
+            returnDate + "T00:00:00"
+        );
+
+
+    while (current <= end) {
+
+        const date =
+            current
+                .toISOString()
+                .split("T")[0];
+
+
+        if (
+            isDateBlocked(
+                selectedItemId,
+                date
+            )
+        ) {
+
+            showMessage(
+                "reservationMessage",
+                "O período escolhido possui uma data já reservada. Escolha outro período.",
+                "error"
+            );
+
+            return;
         }
 
 
-        initialize();
+        current.setDate(
+            current.getDate() + 1
+        );
 
-    </script>
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/reservations`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        itemId:
+                            Number(
+                                selectedItemId
+                            ),
+
+                        userId:
+                            Number(
+                                userId
+                            ),
+
+                        startDate,
+
+                        returnDate
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showMessage(
+                "reservationMessage",
+                data.error ||
+                "Erro ao solicitar empréstimo.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        showMessage(
+            "reservationMessage",
+            "Solicitação enviada com sucesso! O proprietário foi notificado.",
+            "success"
+        );
+
+
+        await loadReservations();
+
+
+        await loadItems();
+
+
+        setTimeout(
+            () => {
+                closeModal();
+            },
+            1800
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "reservationMessage",
+            "Erro ao conectar com o backend.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
+
+async function initialize() {
+
+    await loadUsers();
+
+    await loadCategories();
+
+    await loadReservations();
+
+    await loadItems();
+
+
+    preventBlockedDateSelection(
+        document.getElementById(
+            "startDate"
+        )
+    );
+
+
+    preventBlockedDateSelection(
+        document.getElementById(
+            "returnDate"
+        )
+    );
+
+}
+
+
+initialize();
+
+</script>
 
 </body>
-
 </html>
