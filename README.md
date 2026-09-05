@@ -14,6 +14,15 @@ https://lelego77.github.io/Reposit-rio-para-projeto-da-faculdade---SENAC/
 
 ---
 
+## 🎥 Vídeo de Demonstração
+
+O vídeo apresenta uma demonstração do funcionamento do Proof of Concept do CondoShare, incluindo as principais funcionalidades desenvolvidas.
+
+**Vídeo:**  
+https://drive.google.com/file/d/1nnoN92NTaJX83F1xuli-Akes5nE5IO4o/view?usp=sharing
+
+---
+
 ## Integrantes do Projeto
 
 * Eduardo Bruno do Nascimento Cruz
