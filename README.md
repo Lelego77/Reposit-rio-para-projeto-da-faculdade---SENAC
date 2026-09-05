@@ -6,6 +6,14 @@ O projeto foi desenvolvido como parte da disciplina de Projeto Integrador do cur
 
 ---
 
+## 🌐 Landing Page
+
+A Landing Page do CondoShare está publicada no GitHub Pages:
+
+https://lelego77.github.io/Reposit-rio-para-projeto-da-faculdade---SENAC/
+
+---
+
 ## Integrantes do Projeto
 
 * Eduardo Bruno do Nascimento Cruz
